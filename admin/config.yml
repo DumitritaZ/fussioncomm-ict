@@ -1,10 +1,9 @@
 backend:
   name: github
-  repo: DumitritaZ/fussioncomm-ict       # user/repo exact cum apare pe GitHub
+  repo: DumitritaZ/fussioncomm-ict
   branch: main
-  base_url: https://fussioncomm-ict-2.onrender.com  # URL-ul Render exact
+  base_url: https://fussioncomm-ict-2.onrender.com
   auth_endpoint: /auth
-
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
