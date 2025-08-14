@@ -1,8 +1,8 @@
 backend:
   name: github
-  repo: DumitritaZ/fussioncomm-ict   # înlocuiește cu userul tău
+  repo: DumitritaZ/fussioncomm-ict       # user/repo exact cum apare pe GitHub
   branch: main
-  base_url: https://fussioncomm-ict-1.onrender.com
+  base_url: https://fussioncomm-ict-2.onrender.com  # URL-ul Render exact
   auth_endpoint: /auth
 
 
