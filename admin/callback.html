@@ -3,29 +3,37 @@
   <head>
     <meta charset="utf-8" />
     <title>Authenticating…</title>
+    <meta http-equiv="Cache-Control" content="no-store" />
   </head>
   <body>
+    Authenticating…
     <script>
-      // Decap/Netlify CMS GitHub OAuth callback helper
-      (function() {
-        function getParam(name) {
-          const m = window.location.search.match(new RegExp('[?&]'+name+'=([^&]+)'));
+      (function () {
+        function getParam(n) {
+          var m = window.location.search.match(new RegExp('[?&]'+n+'=([^&]+)'));
           return m ? decodeURIComponent(m[1]) : null;
         }
-        // Store the oauth token in localStorage, CMS îl citește automat
+        // Acceptăm mai multe denumiri, în funcție de provider
         var token = getParam('token') || getParam('access_token') || getParam('code');
         if (token) {
-          try { window.localStorage.setItem('netlify-cms-oauth2', token); } catch(e){}
+          try {
+            // **FORMATUL CORECT** pentru Decap CMS:
+            localStorage.setItem('netlify-cms-oauth2', JSON.stringify({ token: token }));
+          } catch (e) {}
         }
-        // Închide fereastra popup și revino în /admin
-        if (window.opener && window.opener.location) {
-          window.opener.location.reload();
-          window.close();
-        } else {
-          window.location.href = '/admin/';
-        }
+        // Încercăm să notificăm fereastra părinte (CMS)
+        try {
+          if (window.opener) {
+            window.opener.focus();
+            // unele teme mai vechi ascultă și postMessage:
+            window.opener.postMessage('authorization:github:success:' + token, '*');
+            window.close();
+            return;
+          }
+        } catch (e) {}
+        // fallback: mergem înapoi în /admin/
+        window.location.replace('/admin/');
       })();
     </script>
-    Authenticating…
   </body>
 </html>
