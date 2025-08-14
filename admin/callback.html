@@ -9,29 +9,39 @@
     Authenticating…
     <script>
       (function () {
-        function getParam(n) {
-          var m = window.location.search.match(new RegExp('[?&]'+n+'=([^&]+)'));
+        // citește un parametru din query (?token=..., ?access_token=..., ?code=...)
+        function getParam(name) {
+          var m = window.location.search.match(new RegExp('[?&]'+name+'=([^&]+)'));
           return m ? decodeURIComponent(m[1]) : null;
         }
-        // Acceptăm mai multe denumiri, în funcție de provider
+
+        // acceptăm mai multe denumiri, în funcție de provider
         var token = getParam('token') || getParam('access_token') || getParam('code');
+
         if (token) {
           try {
-            // **FORMATUL CORECT** pentru Decap CMS:
+            // Decap CMS așteaptă un JSON sub cheia asta
             localStorage.setItem('netlify-cms-oauth2', JSON.stringify({ token: token }));
-          } catch (e) {}
+          } catch (e) {
+            console.warn('Cannot write token to localStorage:', e);
+          }
         }
-        // Încercăm să notificăm fereastra părinte (CMS)
+
+        // dacă /admin a fost deschis într-un popup, anunță fereastra părinte și închide
         try {
-          if (window.opener) {
+          if (window.opener && window.opener.location) {
             window.opener.focus();
-            // unele teme mai vechi ascultă și postMessage:
-            window.opener.postMessage('authorization:github:success:' + token, '*');
+            // compat: unele implementări ascultă și mesajul ăsta
+            window.opener.postMessage('authorization:github:success:' + (token || ''), '*');
+            window.opener.location.reload();
             window.close();
             return;
           }
-        } catch (e) {}
-        // fallback: mergem înapoi în /admin/
+        } catch (e) {
+          // ignorăm, facem fallback
+        }
+
+        // fallback: redirecționează înapoi în /admin/
         window.location.replace('/admin/');
       })();
     </script>
