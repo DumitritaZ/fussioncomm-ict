@@ -2,7 +2,7 @@ backend:
   name: github
   repo: DumitritaZ/fussioncomm-ict   # înlocuiește cu userul tău
   branch: main
-  base_url: hhttps://fussioncomm-ict.onrender.com
+  base_url: https://fussioncomm-ict-1.onrender.com
   auth_endpoint: /auth
 
 
