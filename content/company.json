@@ -1,0 +1,11 @@
+{
+  "name": "FussionComm ICT",
+  "email": "hello@fussioncomm.example",
+  "location": "Pretoria, South Africa",
+  "tagline": "Soluții ITC agile pentru startup‑uri și IMM‑uri.",
+  "home": {
+    "h1": "Soluții ITC agile pentru startup‑uri și IMM‑uri",
+    "lead": "Construim site‑uri rapide, scalabile și ușor de administrat — de la concept la lansare.",
+    "bullets": ["Design modern & UX clar", "SEO on‑page & performanță", "Mentenață & securitate"]
+  }
+}
