@@ -1,22 +1,132 @@
 <!doctype html>
 <html lang="ro">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Admin • FussionComm ICT</title>
-    <link rel="stylesheet" href="../assets/style.css">
-    <style>
-      body{background:#0B1020;color:#E6EAF2;font-family:Inter,system-ui,sans-serif}
-      .cms-container{max-width:1200px;margin:4rem auto;padding:1rem}
-    </style>
   </head>
   <body>
-    <div class="cms-container">
-      <h1>Panou Admin — FussionComm ICT</h1>
-      <p class="muted">Autentifică-te pentru a edita conținutul (Servicii, Proiecte, Date companie). Designul nu se modifică din CMS.</p>
-    </div>
-
-    <!-- Decap CMS (Netlify/Decap) -->
+    <!-- Decap CMS (UMD) -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <script>
+      // Inițializare manuală — NU mai citim config.yml
+      window.CMS_MANUAL_INIT = true;
+
+      (function () {
+        // PORNEȘTE CMS cu configurare directă în JS
+        const cfg = {
+          backend: {
+            name: "github",
+            repo: "DumitritaZ/fussioncomm-ict",       // <-- user/repo tău
+            branch: "main",
+            base_url: "https://fussioncomm-ict-2.onrender.com", // <-- URL-ul Render
+            auth_endpoint: "/auth"
+          },
+          media_folder: "assets/uploads",
+          public_folder: "/assets/uploads",
+          publish_mode: "editorial_workflow",
+          locale: "ro",
+          collections: [
+            {
+              name: "company",
+              label: "Setări companie",
+              files: [
+                {
+                  file: "content/company.json",
+                  label: "Date companie",
+                  name: "company",
+                  format: "json",
+                  fields: [
+                    { label: "Nume", name: "name", widget: "string" },
+                    { label: "Email", name: "email", widget: "string" },
+                    { label: "Locație", name: "location", widget: "string" },
+                    { label: "Tagline", name: "tagline", widget: "string" },
+                    {
+                      label: "Hero (Acasă)",
+                      name: "home",
+                      widget: "object",
+                      fields: [
+                        { label: "H1", name: "h1", widget: "string" },
+                        { label: "Lead", name: "lead", widget: "text" },
+                        {
+                          label: "Bullets",
+                          name: "bullets",
+                          widget: "list",
+                          field: { label: "Punct", name: "item", widget: "string" }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: "services",
+              label: "Servicii",
+              files: [
+                {
+                  file: "content/services.json",
+                  label: "Lista servicii",
+                  name: "services",
+                  format: "json",
+                  fields: [
+                    {
+                      label: "Servicii",
+                      name: "items",
+                      widget: "list",
+                      fields: [
+                        { label: "Titlu", name: "title", widget: "string" },
+                        { label: "Descriere", name: "description", widget: "text" },
+                        {
+                          label: "Bullets",
+                          name: "bullets",
+                          widget: "list",
+                          field: { label: "Punct", name: "item", widget: "string" }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: "projects",
+              label: "Proiecte",
+              files: [
+                {
+                  file: "content/projects.json",
+                  label: "Lista proiecte",
+                  name: "projects",
+                  format: "json",
+                  fields: [
+                    {
+                      label: "Proiecte",
+                      name: "items",
+                      widget: "list",
+                      fields: [
+                        { label: "Titlu", name: "title", widget: "string" },
+                        { label: "Rezumat", name: "summary", widget: "text" },
+                        { label: "Imagine (opțional)", name: "image", widget: "image", required: false }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        };
+
+        // Decap CMS expune global `CMS`
+        function startCMS() {
+          if (window.CMS && window.CMS.init) {
+            window.CMS.init({ config: cfg });
+          } else {
+            setTimeout(startCMS, 50);
+          }
+        }
+        startCMS();
+      })();
+    </script>
   </body>
 </html>
