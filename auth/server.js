@@ -270,6 +270,45 @@ app.delete('/api/users/:id', requireAdmin, (req,res)=>{
 // Uploads & Content
 // ───────────────────────────────────────────────────────────────────────────────
 const contactLimiter = rateLimit({ windowMs: 60_000, max: 10 });
+// Public contact endpoint (scrie în content/messages.json)
+app.post('/api/contact', contactLimiter, (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body || {};
+
+    // validări simple
+    if (!name || !email || !message) {
+      return res.status(400).json({ ok: false, error: 'missing_fields' });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
+      return res.status(400).json({ ok: false, error: 'invalid_email' });
+    }
+
+    // încărcăm / actualizăm fișierul
+    const file = path.join(CONTENT_DIR, 'messages.json');
+    let arr = [];
+    try { arr = JSON.parse(fs.readFileSync(file, 'utf8')); } catch {}
+
+    const item = {
+      id: crypto.randomBytes(8).toString('hex'),
+      name: String(name).trim(),
+      email: String(email).trim().toLowerCase(),
+      subject: String(subject || '').trim(),
+      message: String(message).trim(),
+      ip: req.ip,
+      createdAt: Date.now(),
+      status: 'new'
+    };
+
+    arr.unshift(item);
+    fs.writeFileSync(file, JSON.stringify(arr, null, 2), 'utf8');
+
+    return res.json({ ok: true });
+  } catch (e) {
+    console.error('CONTACT_ERR', e);
+    return res.status(500).json({ ok: false, error: 'server_error' });
+  }
+});
+
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => cb(null, UPLOAD_DIR),
