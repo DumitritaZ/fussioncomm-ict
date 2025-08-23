@@ -35,6 +35,17 @@ const UPLOAD_DIR  = path.join(PUBLIC_DIR, 'assets', 'upload');
 
 fs.mkdirSync(CONTENT_DIR, { recursive: true });
 fs.mkdirSync(UPLOAD_DIR,  { recursive: true });
+// Seed: content/messages.json (listă goală dacă lipsește)
+const MESSAGES_PATH = path.join(CONTENT_DIR, 'messages.json');
+try {
+  if (!fs.existsSync(MESSAGES_PATH)) {
+    fs.writeFileSync(MESSAGES_PATH, '[]', 'utf8');
+    console.log('Seeded empty', MESSAGES_PATH);
+  }
+} catch (e) {
+  console.error('Cannot init messages store:', e);
+}
+
 
 // ───────────────────────────────────────────────────────────────────────────────
 // Helpers
@@ -297,6 +308,19 @@ app.put('/api/content/:name', requireAdmin, (req,res)=>{
   catch { res.status(400).json({ ok:false, error:'invalid_json' }); }
 });
 
+// Fallback simplu pentru GET /api/messages (lista goală dacă lipsește)
+app.get('/api/messages', requireAdmin, (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(MESSAGES_PATH, 'utf8'));
+    res.json({ ok: true, data });
+  } catch {
+    res.json({ ok: true, data: [] });
+  }
+});
+
+// Înregistrează rutele complete din messages.js (POST, DELETE etc.)
+registerMessageRoutes(app, requireAdmin, writeSafe);
+
 // ───────────────────────────────────────────────────────────────────────────────
 // Robots / Sitemap
 // ───────────────────────────────────────────────────────────────────────────────
@@ -319,7 +343,7 @@ app.get('/sitemap.xml', (_, res) => {
 // ───────────────────────────────────────────────────────────────────────────────
 // HTML injector (după gate, înainte de static) – adaugă meta & watermark
 // ───────────────────────────────────────────────────────────────────────────────
-const PREVIEW_AUTHOR = 'Dumitrița [Numele tău]';  // ← pune-ți numele aici
+const PREVIEW_AUTHOR = 'Dumitrița Zancanu';  // ← pune-ți numele aici
 const YEAR = new Date().getFullYear();
 
 const HEAD_SNIPPET = `
