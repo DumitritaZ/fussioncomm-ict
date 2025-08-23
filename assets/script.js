@@ -1,6 +1,9 @@
 /* assets/script.js */
 (() => {
-  const API = (location.port === '3000') ? '' : 'http://localhost:3000';
+  const API = location.hostname.endsWith('onrender.com')
+  ? 'https://fussioncomm-ict-website1.onrender.com'   // ← pune URL-ul API-ului tău Render
+  : 'http://localhost:3000';
+
 
   document.addEventListener('DOMContentLoaded', () => {
     /* ===== NAV: login / logout / admin ===== */

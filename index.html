@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!--
+  Project: FussionComm ICT Website (Preview)
+  Author: Dumitrița Zancanu, © 2025 — Preview Only
+  Contact: zancanudumitrita@gmail.com
+  Note: This is a protected preview version. Redistribution prohibited.
+-->
+<meta name="author" content="Dumitrița Zancanu">
+<meta name="copyright" content="© 2025 Dumitrița Zancanu">
+<meta name="robots" content="noindex, nofollow">
+
   <meta charset="UTF-8" />
+
+  <!--
+    Project: FussionComm ICT Website (Preview)
+    Author: Dumitrița Zancanu, © 2025 — All rights reserved
+    Contact: zancanudumitrita@gmail.com
+    Note: This is a protected preview version. Redistribution prohibited.
+  -->
+  <meta name="author" content="Dumitrița Zancanu" />
+  <meta name="copyright" content="© 2025 Dumitrița Zancanu" />
+  <meta name="robots" content="noindex, nofollow" />
 
   <!-- Page title -->
   <title>Home — FussionComm ICT</title>
 
-  <!-- SEO -->
+  <!-- SEO (pentru PREVIEW: folosește domeniul live, nu localhost) -->
   <meta name="description" content="Agile ICT solutions for startups and SMEs. Fast, scalable websites and modern web apps with clean UX, strong engineering, and reliable delivery.">
-  <link rel="canonical" href="http://localhost:3000/index.html">
+  <link rel="canonical" href="[PREVIEW_SITE_URL]/index.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="FussionComm ICT — Agile ICT solutions for startups & SMEs">
   <meta property="og:description" content="Fast, scalable websites and modern web apps with clean UX, strong engineering, and reliable delivery.">
-  <meta property="og:url" content="http://localhost:3000/index.html">
-  <meta property="og:image" content="http://localhost:3000/assets/og-cover.jpg">
+  <meta property="og:url" content="[PREVIEW_SITE_URL]/index.html">
+  <meta property="og:image" content="[PREVIEW_SITE_URL]/assets/og-cover.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
@@ -23,7 +43,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="FussionComm ICT — Agile ICT solutions for startups & SMEs">
   <meta name="twitter:description" content="Fast, scalable websites and modern web apps with clean UX, strong engineering, and reliable delivery.">
-  <meta name="twitter:image" content="http://localhost:3000/assets/og-cover.jpg">
+  <meta name="twitter:image" content="[PREVIEW_SITE_URL]/assets/og-cover.jpg">
 
   <!-- Schema.org -->
   <script type="application/ld+json">
@@ -31,8 +51,8 @@
     "@context":"https://schema.org",
     "@type":"Organization",
     "name":"FussionComm ICT",
-    "url":"http://localhost:3000/",
-    "logo":"http://localhost:3000/assets/logoo.svg",
+    "url":"[PREVIEW_SITE_URL]/",
+    "logo":"[PREVIEW_SITE_URL]/assets/logoo.svg",
     "sameAs":[
       "https://www.linkedin.com/company/...",
       "https://www.facebook.com/..."
@@ -189,10 +209,14 @@
       </ul>
     </div>
   </div>
-  <div class="legal">© <span id="yearSpanB"></span> FussionComm ICT</div>
+
+  <!-- Legal client + credit autor (vizibil, pentru preview) -->
+  <div class="legal">© <span id="yearSpanB"></span> FussionComm ICT · Design & Preview © Dumitrița Zancanu</div>
 </footer>
 
-<script>document.getElementById('yearSpanB').textContent = new Date().getFullYear();</script>
+<script>
+  document.getElementById('yearSpanB').textContent = new Date().getFullYear();
+</script>
 
 <script>
   (async function(){
@@ -209,5 +233,16 @@
 </script>
 
 <script defer src="assets/cookie.js"></script>
+
+<!-- Watermark vizibil pentru PREVIEW -->
+<div style="pointer-events:none;position:fixed;inset:0;display:grid;place-items:center;opacity:.12;
+font:700 4rem/1 sans-serif;transform:rotate(-20deg);z-index:999999;">
+  © Dumitrița Zancanu — Preview Only
+</div>
+<!-- WATERMARK_PREVIEW_ONLY -->
+<div id="wm-preview-only" style="pointer-events:none;position:fixed;inset:0;display:grid;place-items:center;opacity:.12;
+font:700 4rem/1 sans-serif;transform:rotate(-20deg);z-index:999999;">
+  © Dumitrița Zancanu — Preview Only
+</div>
 </body>
 </html>
