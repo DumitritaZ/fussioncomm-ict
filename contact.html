@@ -165,7 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const status = document.getElementById('contact-status');
   if (!form) return;
 
-  const API = (location.port === '3000') ? '' : 'http://localhost:3000';
+
+// după:
+const API = ''; // folosește mereu același origin (Render sau local)
+
   let sending = false;
 
   form.addEventListener('submit', async (e) => {
@@ -179,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try{
       const payload = Object.fromEntries(new FormData(form).entries());
-      const r = await fetch(API + '/api/messages', {
+      const r = await fetch(API + '/api/contact', {
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify(payload)
