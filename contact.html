@@ -183,15 +183,18 @@ const API = ''; // folosește mereu același origin (Render sau local)
     try{
       const payload = Object.fromEntries(new FormData(form).entries());
       const r = await fetch(API + '/api/contact', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload)
-      });
-      const out = await r.json().catch(()=>({ok:false}));
-      if (!r.ok || out.ok===false) throw 0;
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body: JSON.stringify(payload)
+});
+const out = await r.json().catch(()=>({ok:false}));
+if (!r.ok || out.ok===false) {
+  status.textContent = `Send failed (${r.status}).`;
+  return;
+}
+status.textContent = 'Thanks! Your message has been sent.';
+form.reset();
 
-      status.textContent = 'Thanks! Your message has been sent.';
-      form.reset();
     }catch{
       status.textContent = 'Send failed. Please try again.';
     }finally{
