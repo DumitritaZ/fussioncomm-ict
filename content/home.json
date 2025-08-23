@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "headline": "We build digital products that grow businesses",
+    "subheadline": "Agile ICT solutions for startups and SMEs. Fast, scalable, and easy-to-manage websites.",
+    "ctaText": "Let’s talk",
+    "ctaHref": "contact.html",
+    "cta2Text": "View services",
+    "cta2Href": "services.html",
+    "bullets": [
+      "Modern design & clear UX",
+      "On-page SEO & performance",
+      "Maintenance & security"
+    ],
+    "image": "/assets/hero.webp",
+    "slides": [
+      "/assets/upload/1755286563848-image.jpg",
+      "/assets/upload/1755286569999-image.jpg",
+      "/assets/upload/1755286579484-image.jpg",
+      "/assets/upload/1755448165341-image.jpg",
+      "/assets/upload/1755448172941-image.jpg"
+    ]
+  },
+  "sections": {
+    "servicesTitle": "Services",
+    "projectsTitle": "Projects",
+    "servicesSeeAll": "Browse all services",
+    "projectsSeeAll": "All projects"
+  }
+}

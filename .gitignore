@@ -1,0 +1,26 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# Builds / bundles
+dist/
+protected/
+*.zip
+
+# Local environment + secrets
+.env
+.env.local
+auth/.env
+auth/.env.local
+
+# Uploads (optional: keep only a placeholder)
+assets/upload/*
+!assets/upload/.gitkeep
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

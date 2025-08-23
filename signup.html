@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Create account | FussionComm ICT</title>
+  <meta name="description" content="Sign up to contact the team and track project progress.">
+  <link rel="canonical" href="http://localhost:3000/signup.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Create account | FussionComm ICT">
+  <meta property="og:description" content="Sign up in a few seconds.">
+  <meta property="og:url" content="http://localhost:3000/signup.html">
+  <meta property="og:image" content="http://localhost:3000/assets/og-cover.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Create account | FussionComm ICT">
+  <meta name="twitter:description" content="Sign up in a few seconds.">
+  <meta name="twitter:image" content="http://localhost:3000/assets/og-cover.jpg">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
+  <link rel="mask-icon" href="/assets/favicon.svg" color="#5b8cff">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/script.js"></script>
+
+  <style>
+    .auth-wrap{max-width:480px;margin:2.5rem auto;padding:0 1rem}
+    .card{border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:1.25rem;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    .stack label{display:block;margin:.65rem 0 .25rem}
+    .stack input{width:100%}
+    .muted{opacity:.85}
+    .tiny{font-size:.9rem}
+    /* eye toggle */
+    .pw-wrap{position:relative;display:flex;align-items:center}
+    .pw-wrap input{padding-right:2.25rem}
+    .pw-toggle{
+      position:absolute;right:.5rem;top:50%;transform:translateY(-50%);
+      background:transparent;border:0;cursor:pointer;font-size:1rem;line-height:1;color:inherit
+    }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      <img src="assets/logoo.svg" class="logo" alt="FussionComm ICT">
+      <span></span>
+    </a>
+    <input type="checkbox" id="nav-toggle" aria-label="toggle navigation">
+    <label class="burger" for="nav-toggle"><span></span><span></span><span></span></label>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a class="btn" href="contact.html">Contact</a>
+      <a id="navAdmin" href="admin.html" style="display:none">Admin</a>
+      <a id="navLogin" href="login.html">Sign in</a>
+      <a id="navLogout" href="#" style="display:none">Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<main class="site-main">
+  <section class="section">
+    <div class="auth-wrap">
+      <h1>Create account</h1>
+      <div class="card">
+        <form id="signupForm" class="stack" novalidate>
+          <label>Name
+            <input id="name" autocomplete="name" required>
+          </label>
+          <label>Email
+            <input id="email" type="email" autocomplete="email" required>
+          </label>
+          <label>Password
+            <span class="pw-wrap">
+              <input id="password" type="password" autocomplete="new-password" required>
+              <button type="button" class="pw-toggle" data-target="password" aria-label="Show password" title="Show password">👁</button>
+            </span>
+          </label>
+
+          <button class="btn btn-gradient" style="margin-top:1rem">Create account</button>
+
+          <p class="tiny muted" style="margin-top:.75rem">
+            By creating an account you agree to our
+            <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.
+          </p>
+
+          <p id="msg" class="muted tiny" style="margin-top:.5rem"></p>
+          <p class="tiny" style="margin-top:.75rem">Already have an account? <a href="login.html">Sign in</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* signup submit (unchanged) */
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const msg = document.getElementById('msg');
+
+  if (!name || !email || !password) { msg.textContent = 'Please fill in all fields.'; return; }
+
+  msg.textContent = 'Creating your account...';
+  try {
+    const r = await fetch('/api/signup', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name, email, password })
+    });
+    const out = await r.json();
+    if (!r.ok || !out.ok) throw new Error(out.error || 'signup_failed');
+
+    msg.textContent = 'Account created. Redirecting to login...';
+    setTimeout(()=> location.href='login.html', 900);
+  } catch (e2) {
+    msg.textContent = (e2.message === 'email_in_use') ? 'Email already in use.' : 'Could not create the account.';
+  }
+});
+
+/* eye toggle (new) */
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('.pw-toggle').forEach(tgl=>{
+    tgl.addEventListener('click', (e)=>{
+      e.preventDefault(); e.stopPropagation();
+      const id = tgl.getAttribute('data-target');
+      const input = document.getElementById(id);
+      if (!input) return;
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      tgl.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      tgl.title = show ? 'Hide password' : 'Show password';
+      tgl.textContent = show ? '🙈' : '👁';
+    });
+  });
+});
+</script>
+
+<script defer src="assets/cookie.js"></script>
+</body>
+</html>

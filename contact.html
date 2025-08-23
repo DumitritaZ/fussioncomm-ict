@@ -1,86 +1,193 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact • FussionComm ICT</title>
-  <meta name="description" content="FussionComm ICT — soluții ITC agile pentru startup‑uri și IMM‑uri. Site-uri rapide, scalabile și ușor de administrat." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css" />
-  <script defer src="assets/script.js"></script>
-  <script defer src="assets/app.js"></script>
+<meta charset="UTF-8" />
+<title>Contact — FussionComm ICT</title>
+<meta name="description" content="Send us a message and we'll come back with a plan. Email, phone and location.">
+<link rel="canonical" href="https://fussioncomm.ro/contact.html">
 
+<!-- Open Graph -->
+<meta property="og:title" content="Contact — FussionComm ICT">
+<meta property="og:description" content="Let’s talk about your project.">
+<meta property="og:url" content="https://fussioncomm.ro/contact.html">
+<meta property="og:image" content="https://fussioncomm.ro/assets/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact — FussionComm ICT",
+  "url": "https://fussioncomm.ro/contact.html",
+  "about": {
+    "@type": "Organization",
+    "name": "FussionComm ICT",
+    "url": "https://fussioncomm.ro/",
+    "logo": "https://fussioncomm.ro/assets/logoo.svg",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "hello@fussioncomm.ro",
+      "telephone": "+27 00 000 0000",
+      "areaServed": "ZA"
+    }]
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css" />
+<script defer src="assets/script.js"></script>
+<script defer src="assets/app.js"></script>
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
+<link rel="mask-icon" href="/assets/favicon.svg" color="#5b8cff">
+<link rel="shortcut icon" href="/assets/favicon.ico">
+
+<script>
+(async function(){
+  try{
+    const r = await fetch('/api/me', { credentials:'include' });
+    const out = await r.json();
+    const notice = document.getElementById('loginNotice');
+    if (!out?.user) {
+      if (notice) notice.innerHTML = 'Optional: <a href="login.html">sign in</a> for a faster response.';
+    }
+  }catch(e){}
+})();
+</script>
 </head>
+
 <body>
 <header class="site-header">
   <div class="container nav">
     <a class="brand" href="index.html">
-      <img src="assets/logo.svg" alt="FussionComm ICT" class="logo" />
-      <span>FussionComm ICT</span>
+      <img src="assets/logoo.svg" alt="FussionComm ICT" class="logo" />
+      <span></span>
     </a>
     <input type="checkbox" id="nav-toggle" aria-label="toggle navigation">
     <label class="burger" for="nav-toggle"><span></span><span></span><span></span></label>
     <nav class="menu">
-      <a href="index.html">Acasă</a>
-      <a href="about.html">Despre</a>
-      <a href="services.html">Servicii</a>
-      <a href="projects.html">Proiecte</a>
-      <a href="blog.html">Blog</a>
-      <a class="btn" href="contact.html">Contact</a>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a class="btn" href="contact.html" aria-current="page">Contact</a>
+      <!-- controlled via JS -->
+      <a id="navAdmin" href="admin.html" style="display:none">Admin</a>
+      <a id="navLogin" href="login.html">Sign in</a>
+      <a id="navLogout" href="#" style="display:none">Sign out</a>
     </nav>
   </div>
 </header>
+
 <main class="site-main">
+  <section class="section">
+    <div class="container narrow">
+      <h1>Contact</h1>
+      <p>Tell us briefly what you need and we’ll come back with a plan.</p>
+      <div id="loginNotice" class="muted tiny" style="margin:.5rem 0"></div>
 
-<section class="section">
-  <div class="container narrow">
-    <h1>Contact</h1>
-    <p>Spune-ne pe scurt ce ai nevoie și revenim cu un plan.</p>
-    <form class="contact" action="mailto:hello@fussioncomm.example" method="post" enctype="text/plain">
-      <div class="grid-2">
-        <label>Nume
-          <input type="text" name="name" required>
+      <form id="contact-form" class="contact">
+        <div class="grid-2">
+          <label>Name
+            <input type="text" name="name" required>
+          </label>
+          <label>Email
+            <input type="email" name="email" required>
+          </label>
+        </div>
+        <label>Message
+          <textarea name="message" rows="6" required></textarea>
         </label>
-        <label>Email
-          <input type="email" name="email" required>
-        </label>
-      </div>
-      <label>Mesaj
-        <textarea name="message" rows="6" required></textarea>
-      </label>
-      <button type="submit" class="btn btn-gradient">Trimite</button>
-    </form>
-    <p class="muted tiny">Pentru producție recomandăm un serviciu formular (ex. Formspree/Netlify Forms) sau backend propriu.</p>
-  </div>
-</section>
 
-</main>
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <div class="brandline"><img src="assets/logo.svg" class="logo-sm" alt=""><strong>FussionComm ICT</strong></div>
-      <p class="muted">Soluții ITC agile pentru startup‑uri și IMM‑uri.</p>
+        <!-- honeypot anti-spam (hidden) -->
+        <div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <button type="submit" class="btn btn-gradient">Send</button>
+        <p id="contact-status" class="tiny muted" style="margin-top:8px"></p>
+      </form>
     </div>
+  </section>
+</main>
+
+<footer class="footer-b">
+  <div class="accent"></div>
+  <div class="wrap">
     <div>
-      <h4>Linkuri</h4>
+      <div class="brandline"><strong data-company="name">FussionComm ICT</strong></div>
+      <p class="muted" data-company="description">Agile ICT solutions for startups and SMBs.</p>
+    </div>
+    <nav>
+      <h4>Links</h4>
       <ul>
-        <li><a href="about.html">Despre</a></li>
-        <li><a href="services.html">Servicii</a></li>
-        <li><a href="projects.html">Proiecte</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
-    </div>
+    </nav>
     <div>
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:hello@fussioncomm.example">hello@fussioncomm.example</a></li>
-        <li>Pretoria, South Africa</li>
+        <li><a id="footer-email" href="#">hello@fussioncomm.example</a></li>
+        <li id="footer-location">Pretoria, South Africa</li>
       </ul>
     </div>
   </div>
-  <div class="container tiny">© 2025 FussionComm ICT. Toate drepturile rezervate.</div>
+  <div class="legal">© <span id="yearSpanB"></span> FussionComm ICT</div>
 </footer>
+<script>document.getElementById('yearSpanB').textContent=new Date().getFullYear();</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form   = document.getElementById('contact-form');
+  const status = document.getElementById('contact-status');
+  if (!form) return;
+
+  const API = (location.port === '3000') ? '' : 'http://localhost:3000';
+  let sending = false;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (sending) return;      // prevent double submit
+    sending = true;
+
+    const btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
+    status.textContent = 'Sending...';
+
+    try{
+      const payload = Object.fromEntries(new FormData(form).entries());
+      const r = await fetch(API + '/api/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const out = await r.json().catch(()=>({ok:false}));
+      if (!r.ok || out.ok===false) throw 0;
+
+      status.textContent = 'Thanks! Your message has been sent.';
+      form.reset();
+    }catch{
+      status.textContent = 'Send failed. Please try again.';
+    }finally{
+      sending = false;
+      if (btn) btn.disabled = false;
+    }
+  });
+});
+</script>
+<script defer src="assets/cookie.js"></script>
 </body>
 </html>

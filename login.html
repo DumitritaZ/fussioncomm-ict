@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow">
+
+  <title>Log in | FussionComm ICT</title>
+  <meta name="description" content="Sign in to your account.">
+  <link rel="canonical" href="/login.html">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
+  <link rel="mask-icon" href="/assets/favicon.svg" color="#5b8cff">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+
+  <link rel="stylesheet" href="assets/style.css" />
+  <script defer src="assets/script.js"></script>
+  <style>
+    .auth-wrap{max-width:480px;margin:2.5rem auto;padding:0 1rem}
+    .card{border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:1.25rem;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    .stack label{display:block;margin:.65rem 0 .25rem}
+    .stack input{width:100%}
+    .muted{opacity:.85}
+    .tiny{font-size:.9rem}
+    .pw-wrap{position:relative;display:flex;align-items:center}
+    .pw-wrap input{padding-right:2.25rem}
+    .pw-toggle{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);background:transparent;border:0;cursor:pointer;font-size:1rem;line-height:1;color:inherit}
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;z-index:1000}
+    .modal[open]{display:block}
+    .modal .back{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)}
+    .modal .dlg{position:relative;margin:10vh auto;width:min(540px,92vw);background:#111826;border:1px solid #1e2636;border-radius:14px;padding:16px}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn{padding:.55rem .9rem;border-radius:10px;border:1px solid #1e2636;background:#0f1628;color:#fff;cursor:pointer}
+    .btn.primary{background:linear-gradient(135deg,#5b8cff,#6ee7ff);color:#0b0f1c;border-color:transparent}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      <img src="assets/logoo.svg" class="logo" alt="FussionComm ICT"><span></span>
+    </a>
+    <input type="checkbox" id="nav-toggle" aria-label="toggle navigation">
+    <label class="burger" for="nav-toggle"><span></span><span></span><span></span></label>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a class="btn" href="contact.html">Contact</a>
+      <a id="navAdmin" href="admin.html" style="display:none">Admin</a>
+      <a id="navLogin" href="login.html" aria-current="page">Sign in</a>
+      <a id="navLogout" href="#" style="display:none">Sign out</a>
+    </nav>
+  </div>
+</header>
+
+<main class="site-main">
+  <section class="section">
+    <div class="auth-wrap">
+      <h1>Sign in</h1>
+      <div class="card">
+        <form id="loginForm" class="stack" novalidate>
+          <label>Email or username
+            <input id="identifier" autocomplete="username" required>
+          </label>
+          <label>Password
+            <span class="pw-wrap">
+              <input id="password" type="password" autocomplete="current-password" required>
+              <button type="button" class="pw-toggle" data-target="password" aria-label="Show password" title="Show password">👁</button>
+            </span>
+          </label>
+
+          <div class="row" style="justify-content:space-between;margin-top:.25rem">
+            <button class="btn primary" id="btnLogin" type="submit">Sign in</button>
+            <a href="#" id="lnkForgot" class="tiny">Forgot password?</a>
+          </div>
+
+          <p id="msg" class="muted tiny" style="margin-top:.75rem"></p>
+          <p class="tiny" style="margin-top:.75rem">Don’t have an account? <a href="signup.html">Create one</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Forgot password modal -->
+<div id="forgotModal" class="modal" aria-hidden="true">
+  <div class="back"></div>
+  <div class="dlg">
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <h3 style="margin:0">Reset password</h3>
+      <button id="fpClose" class="btn" type="button" aria-label="Close">✕</button>
+    </div>
+    <p class="tiny muted" style="margin:.5rem 0 1rem">Enter your email address. If an account exists, we’ll send a reset link.</p>
+    <label>Email
+      <input id="fp_email" type="email" autocomplete="email" required>
+    </label>
+    <div class="row" style="margin-top:.75rem">
+      <button id="fpSend" class="btn primary" type="button">Send reset link</button>
+      <span id="fpMsg" class="tiny muted"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = ''; // same origin
+
+// eye toggle
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('.pw-toggle').forEach(tgl=>{
+    tgl.addEventListener('click', (e)=>{
+      e.preventDefault(); e.stopPropagation();
+      const id = tgl.getAttribute('data-target');
+      const input = document.getElementById(id);
+      if (!input) return;
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      tgl.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      tgl.title = show ? 'Hide password' : 'Show password';
+      tgl.textContent = show ? '🙈' : '👁';
+    });
+  });
+});
+
+// login submit
+document.getElementById('loginForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const id  = document.getElementById('identifier').value.trim();
+  const pwd = document.getElementById('password').value;
+  const msg = document.getElementById('msg');
+  if (!id || !pwd){ msg.textContent='Please enter your credentials.'; return; }
+  msg.textContent='Signing in...';
+  try{
+    const r = await fetch(API_BASE + '/api/login', {
+      method:'POST', credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ identifier:id, password:pwd })
+    });
+    const out = await r.json().catch(()=> ({}));
+    if (!r.ok || out.ok === false) throw new Error(out.error || 'invalid');
+    const role = out.role || (out.user && out.user.role);
+    // redirect: admin -> admin.html, else -> index.html
+    location.href = (role === 'admin') ? 'admin.html' : 'index.html';
+  }catch(e){
+    msg.textContent='Invalid credentials.';
+  }
+});
+
+// forgot modal open/close
+const modal = document.getElementById('forgotModal');
+document.getElementById('lnkForgot').addEventListener('click', (e)=>{ e.preventDefault(); modal.setAttribute('open',''); modal.removeAttribute('aria-hidden'); });
+document.getElementById('fpClose').addEventListener('click', ()=>{ modal.removeAttribute('open'); modal.setAttribute('aria-hidden','true'); });
+modal.querySelector('.back').addEventListener('click', ()=>{ modal.removeAttribute('open'); modal.setAttribute('aria-hidden','true'); });
+
+// send reset link
+document.getElementById('fpSend').addEventListener('click', async ()=>{
+  const email = document.getElementById('fp_email').value.trim();
+  const msg   = document.getElementById('fpMsg');
+  if (!email){ msg.textContent = 'Enter your email.'; return; }
+  msg.textContent = 'Sending...';
+  try{
+    const r = await fetch(API_BASE + '/api/forgot-password', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email })
+    });
+    // Răspuns generic, indiferent dacă emailul există (security)
+    msg.textContent = 'If the address exists, a reset link has been sent.';
+  }catch{
+    msg.textContent = 'If the address exists, a reset link has been sent.';
+  }
+});
+</script>
+
+<script defer src="assets/cookie.js"></script>
+</body>
+</html>

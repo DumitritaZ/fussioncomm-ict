@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<title>FussionComm ICT — Solutions for Startups & SMEs</title>
+<meta name="description" content="Fast, scalable, easy-to-manage websites. Web development, UX, SEO & maintenance.">
+<link rel="canonical" href="https://www.fussioncomm.example/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="FussionComm ICT">
+<meta property="og:description" content="ICT solutions for startups & SMEs.">
+<meta property="og:url" content="https://www.fussioncomm.example/">
+<meta property="og:image" content="https://www.fussioncomm.example/assets/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"FussionComm ICT",
+  "url":"https://www.fussioncomm.example/",
+  "logo":"https://www.fussioncomm.example/assets/logoo.svg",
+  "sameAs":[
+    "https://www.linkedin.com/company/...",
+    "https://www.facebook.com/..."
+  ]
+}
+</script>
+
+<!-- principal -->
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
+<link rel="mask-icon" href="/assets/favicon.svg" color="#5b8cff">
+<link rel="shortcut icon" href="/assets/favicon.ico">
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin • FussionComm ICT</title>
+<link rel="stylesheet" href="assets/style.css" />
+<script defer src="assets/script.js"></script>
+<style>
+  :root{
+    --bg:#0e1320; --panel:#111826; --muted:#8b93a7; --line:#1e2636;
+    --brand:#6ee7ff; --brand2:#5b8cff; --ok:#10b981; --warn:#f59e0b; --danger:#ef4444;
+    --text:#e8ecf5; --chip:#151d2d;
+  }
+  body{background:var(--bg); color:var(--text)}
+  .admin{display:grid; grid-template-columns:260px 1fr; min-height:100vh;}
+  .sidebar{background:#0b1020; border-right:1px solid var(--line); padding:20px 16px; position:sticky; top:0; height:100vh;}
+  .brandline{display:flex; align-items:center; gap:10px; font-weight:700}
+  .brandline img{width:26px;height:26px}
+  .navlist{margin-top:18px; display:grid; gap:8px}
+  .navitem{display:flex; gap:10px; align-items:center; padding:10px 12px; border-radius:12px; color:var(--muted); cursor:pointer}
+  .navitem.active{background:#0f1628; color:#fff}
+  .main{padding:24px}
+  .topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px}
+  .userchip{background:var(--chip); border:1px solid var(--line); padding:.35rem .6rem; border-radius:999px; font-size:.9rem}
+  .grid{display:grid; gap:16px}
+  .panel{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.12)}
+  .panel h3{margin:0 0 .75rem 0}
+  .card{border:1px solid var(--line); background:#0d1426; border-radius:14px; padding:12px}
+  .stack label{display:block; margin:.6rem 0 .25rem}
+  input, textarea, select{width:100%; background:#0d1426; border:1px solid var(--line); color:#e6ebf5; border-radius:10px; padding:.65rem .75rem}
+  textarea{resize:vertical}
+  .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+  .list{display:grid; gap:12px}
+  .img-prev{max-width:150px; border-radius:8px; margin:.25rem 0}
+  .tiny{font-size:.9rem} .muted{color:var(--muted)}
+  .btn{padding:.55rem .9rem; border-radius:10px; border:1px solid var(--line); background:#0f1628; color:#fff; cursor:pointer}
+  .btn.primary{background:linear-gradient(135deg,var(--brand2),var(--brand)); border-color:transparent; color:#0b0f1c}
+  .btn.danger{background:#2a0f12; border-color:#3a1518; color:#ffb3b3}
+  @media (max-width:1024px){ .admin{grid-template-columns:1fr} .sidebar{position:relative; height:auto} }
+  .login-wrap{max-width:560px;margin:48px auto 0}
+  .center-card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:18px;}
+
+  /* list */
+  .msg-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+  .msg-item{background:var(--card,rgba(255,255,255,.03));border:1px solid var(--line,rgba(255,255,255,.08));border-radius:12px;padding:12px 14px;cursor:pointer;transition:background .15s}
+  .msg-item:hover{background:rgba(255,255,255,.05)}
+  .msg-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .msg-name{font-weight:600}
+  .msg-meta{white-space:nowrap}
+  .badge{font-size:.75rem;padding:.15rem .5rem;border:1px solid var(--line,rgba(255,255,255,.15));border-radius:999px;opacity:.9}
+  .badge.unread{border-color:#4da3ff;color:#4da3ff}
+  .msg-preview{margin-top:6px;opacity:.9;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-clamp: 2;overflow:hidden;line-height:1.4}
+
+  /* modal */
+  .msg-modal.hidden{display:none}
+  .msg-modal{position:fixed;inset:0;z-index:999}
+  .msg-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px)}
+  .msg-dialog{position:relative;margin:6vh auto;width:min(880px,92vw);background:var(--card,#0f1623);border:1px solid var(--line,rgba(255,255,255,.12));border-radius:16px;padding:16px;max-height:88vh;overflow:auto}
+  .msg-dialog-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+  .icon-btn{background:transparent;border:1px solid var(--line,rgba(255,255,255,.2));border-radius:8px;padding:6px 10px;cursor:pointer}
+  .msg-dialog-body{white-space:pre-wrap;line-height:1.5;margin:10px 0 0 0}
+</style>
+</head>
+<body>
+
+<div class="admin">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brandline"><img src="assets/logoo.svg" alt=""><span>Admin</span></div>
+    <div class="navlist">
+      <div class="navitem active" data-panel="dash">Dashboard</div>
+      <div class="navitem" data-panel="home">Home</div>
+      <div class="navitem" data-panel="company">About</div>
+      <div class="navitem" data-panel="services">Services</div>
+      <div class="navitem" data-panel="projects">Projects</div>
+      <div class="navitem" data-panel="footer">Footer</div>
+      <div class="navitem" data-panel="messages">Messages</div>
+      <div class="navitem" data-panel="users">Users</div>
+
+      <div class="navitem" id="btnLogout">Sign out</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <section class="main">
+    <div class="topbar">
+  <div id="crumb">Dashboard</div>
+  <div class="row"></div>
+  <div class="userchip" id="who">guest</div>
+</div>
+
+    <!-- DASH -->
+    <div id="panel-dash" class="panel">
+      <h3>Overview</h3>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="card"><div class="tiny muted">Total Services</div><div id="kpiServices" style="font-size:1.6rem;font-weight:700">0</div></div>
+        <div class="card"><div class="tiny muted">Total Projects</div><div id="kpiProjects" style="font-size:1.6rem;font-weight:700">0</div></div>
+        <div class="card"><div class="tiny muted">Last Save</div><div id="kpiUpdated" style="font-size:1.1rem;font-weight:700">—</div></div>
+      </div>
+    </div>
+
+    <!-- HOME -->
+    <div id="panel-home" class="panel" style="display:none">
+      <h3>Home</h3>
+      <div class="stack">
+        <label>Hero headline <input id="h_headline"></label>
+        <label>Hero subheadline <textarea id="h_sub" rows="3"></textarea></label>
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <label>CTA 2 text <input id="h_cta2Text" placeholder=""></label>
+          <label>CTA 2 link <input id="h_cta2Href" placeholder="contact.html"></label>
+        </div>
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <label>CTA text <input id="h_ctaText"></label>
+          <label>CTA link <input id="h_ctaHref" placeholder="services.html"></label>
+        </div>
+        <label>Hero image (fallback) <input id="h_image" placeholder="/assets/hero.webp"></label>
+        <label>Bullets (one per line)
+          <textarea id="h_bullets" rows="3" placeholder="e.g. Modern design & clear UX&#10;On-page SEO & performance&#10;Maintenance & security"></textarea>
+        </label>
+        <div class="divider"></div>
+        <h4 style="margin:.25rem 0">Image slider</h4>
+        <div id="homeSlides" class="list"></div>
+        <div class="row">
+          <input type="file" id="homeSlideFiles" accept="image/*" multiple>
+          <button class="btn" id="btnAddSlides" type="button">Upload images</button>
+          <span class="tiny muted" id="msgSlides"></span>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <label>Services — title <input id="h_servicesTitle"></label>
+          <label>Projects — title <input id="h_projectsTitle"></label>
+          <label>“All services” label <input id="h_servicesSeeAll"></label>
+          <label>“All projects” label <input id="h_projectsSeeAll"></label>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="saveHome">Save</button>
+        <span class="muted tiny" id="msgHome"></span>
+      </div>
+    </div>
+
+    
+   <!-- company -->
+<!-- COMPANY -->
+<div id="panel-company" class="panel" style="display:none">
+  <h3>Company</h3>
+
+  <!-- *** About-first UI *** -->
+  <div class="stack">
+    <label>About title
+      <input id="ab_title">
+    </label>
+
+    <label>About subtitle
+      <textarea id="ab_subtitle" rows="3"></textarea>
+    </label>
+
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <label>What we do — title
+        <input id="ab_sum_title" placeholder="e.g. What we do">
+      </label>
+      <label>What we do — copy
+        <textarea id="ab_summary" rows="3"></textarea>
+      </label>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr auto">
+      <div>
+        <label>Hero image</label>
+        <img id="ab_prev" class="img-prev" src="" alt="" style="display:none;max-height:160px">
+        <input type="file" id="ab_file" accept="image/*">
+        <input type="hidden" id="ab_image">
+      </div>
+      <div class="row" style="align-items:flex-end">
+        <button class="btn" id="ab_upload" type="button">Upload</button>
+        <span class="tiny muted" id="ab_msg"></span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <h4>Highlights</h4>
+    <div id="ab_highlights" class="list"></div>
+    <button class="btn" id="ab_add_highlight" type="button">+ Add highlight</button>
+
+    <div class="divider"></div>
+    <h4>Body paragraphs (one per line)</h4>
+    <textarea id="ab_body" rows="6" placeholder="Write each paragraph on a new line"></textarea>
+
+    <div class="divider"></div>
+    <h4>Stats</h4>
+    <div id="ab_stats" class="list"></div>
+    <button class="btn" id="ab_add_stat" type="button">+ Add stat</button>
+  </div>
+
+  <div class="row" style="margin-top:10px">
+    <button class="btn primary" id="saveCompany">Save</button>
+    <span class="muted tiny" id="msgCompany"></span>
+  </div>
+</div>
+
+
+    <!-- SERVICES -->
+    <div id="panel-services" class="panel" style="display:none">
+      <div class="row" style="justify-content:space-between">
+        <h3>Services</h3>
+        <button class="btn" id="addService">+ Add</button>
+      </div>
+      <div id="servicesList" class="list"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="saveServices">Save</button>
+        <span class="muted tiny" id="msgServices"></span>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div id="panel-projects" class="panel" style="display:none">
+      <div class="row" style="justify-content:space-between">
+        <h3>Projects</h3>
+        <button class="btn" id="addProject">+ Add</button>
+      </div>
+      <div id="projectsList" class="list"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="saveProjects">Save</button>
+        <span class="muted tiny" id="msgProjects"></span>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div id="panel-contact" class="panel" style="display:none">
+      <h3>Contact</h3>
+      <div class="stack">
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <label>Email <input id="ct_email"></label>
+          <label>Phone <input id="ct_phone"></label>
+        </div>
+        <label>Location <input id="ct_location"></label>
+        <label>Map embed (iframe) <textarea id="ct_map" rows="4" placeholder="&lt;iframe ...&gt;&lt;/iframe&gt;"></textarea></label>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="saveContact">Save</button>
+        <span class="muted tiny" id="msgContact"></span>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="panel-footer" class="panel" style="display:none">
+      <h3>Footer</h3>
+
+      <div class="stack">
+        <div class="grid" style="grid-template-columns:1fr">
+          <label>Tagline <textarea id="f_tagline" rows="3"></textarea></label>
+        </div>
+
+        <div class="divider"></div>
+        <h4>Links</h4>
+        <div id="f_links" class="list"></div>
+        <button class="btn" id="f_add_link" type="button">+ Add link</button>
+
+        <div class="divider"></div>
+        <h4>Contact</h4>
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <label>Email <input id="f_email"></label>
+          <label>Phone <input id="f_phone"></label>
+        </div>
+        <label>Location <input id="f_location"></label>
+        <label>Map embed (iframe)
+          <textarea id="f_map" rows="4" placeholder="&lt;iframe ...&gt;&lt;/iframe&gt;"></textarea>
+        </label>
+
+        <div class="divider"></div>
+        <h4>Social</h4>
+        <div id="f_social" class="list"></div>
+        <button class="btn" id="f_add_social" type="button">+ Add social</button>
+
+        <div class="divider"></div>
+        <label>Copyright <input id="f_copy" placeholder="you can use {{year}} for the current year"></label>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="f_save">Save</button>
+        <span class="muted tiny" id="f_msg"></span>
+      </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div id="panel-messages" class="panel" style="display:none">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h3>Contact Messages</h3>
+        <div class="row">
+          <button class="btn" id="btnRefreshMsgs" type="button">Refresh</button>
+        </div>
+      </div>
+      <ul id="msgList" class="msg-list"></ul>
+    </div>
+
+    <!-- Modal message -->
+    <div id="msgModal" class="msg-modal hidden" aria-hidden="true">
+      <div class="msg-backdrop"></div>
+      <div class="msg-dialog" role="dialog" aria-modal="true" aria-labelledby="msgTitle">
+        <div class="msg-dialog-head">
+          <h4 id="msgTitle">Message</h4>
+          <button id="msgClose" class="icon-btn" aria-label="Close">✕</button>
+        </div>
+        <div class="msg-dialog-meta tiny muted" id="msgMeta"></div>
+        <pre class="msg-dialog-body" id="msgBody"></pre>
+        <div class="row" style="margin-top:12px">
+          <button class="btn" id="btnToggleRead">Mark as read</button>
+          <button class="btn danger" id="btnDeleteMsg">Delete</button>
+        </div>
+      </div>
+    </div>
+
+   
+
+    <div id="panel-users" class="panel" style="display:none">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h3>Users</h3>
+        <div class="row">
+          <input id="u_q" placeholder="Search email/username" style="min-width:260px">
+          <select id="u_filter">
+            <option value="">All</option>
+            <option value="active">Active</option>
+            <option value="blocked">Blocked</option>
+            <option value="admin">Admins</option>
+          </select>
+          <button class="btn" id="u_reload">Reload</button>
+        </div>
+      </div>
+
+      <div id="usersList" class="list"></div>
+      <div class="tiny muted" id="u_msg"></div>
+    </div>
+
+    <!-- LOGIN (shown only if not logged in as admin) -->
+    <div id="loginSection" class="login-wrap">
+      <div class="center-card">
+        <h3>Admin sign in</h3>
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <label>Username <input id="a_username" autocomplete="username"></label>
+          <label>Password <input id="a_password" type="password" autocomplete="current-password"></label>
+        </div>
+        <div class="row" style="margin-top:.75rem">
+          <button id="loginBtn" class="btn">Sign in</button>
+          <span id="loginMsg" class="muted tiny"></span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<script>
+/* ===== Helpers ===== */
+function $(s){ return document.querySelector(s); }
+function el(t,attrs={},html=''){ const e=document.createElement(t); Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v)); e.innerHTML=html; return e; }
+async function api(path, opts={}){ opts.headers=Object.assign({'Content-Type':'application/json'}, opts.headers||{}); opts.credentials='include'; const r=await fetch(path,opts); const d=await r.json().catch(()=>({})); if(!r.ok||d.ok===false){const e=new Error(d.error||('HTTP '+r.status)); e.status=r.status; throw e;} return d; }
+
+function show(panel){
+  ['dash','home','company','services','projects','about','contact','footer','messages','users']
+    .forEach(p=>{
+      const el = document.getElementById('panel-'+p);
+      if (el && el.style) el.style.display = (p===panel)?'block':'none';
+    });
+  document.getElementById('crumb').textContent = panel[0].toUpperCase()+panel.slice(1);
+}
+
+
+/* ===== Gate (session) ===== */
+(async function(){
+  try{
+    const out = await api('/api/me',{method:'GET'});
+    if (!out.user || out.user.role!=='admin'){ $('#loginSection').style.display='block'; $('#who').textContent='guest'; return; }
+    $('#loginSection').style.display='none'; $('#who').textContent=out.user.username||'admin'; await refreshKPI();
+  }catch(e){ $('#loginSection').style.display='block'; }
+})();
+
+/* ===== Login / Logout ===== */
+$('#loginBtn').addEventListener('click', async ()=>{
+  const u=$('#a_username').value.trim(), p=$('#a_password').value, m=$('#loginMsg');
+  if(!u||!p){ m.textContent='Please enter username and password.'; return; }
+  m.textContent='Signing in...';
+  try{
+    const out=await api('/api/login',{method:'POST', body:JSON.stringify({identifier:u,password:p})});
+    if(out.role!=='admin'){ alert('This account has no admin rights.'); location.href='index.html'; return; }
+    $('#loginSection').style.display='none'; $('#who').textContent=u; await refreshKPI();
+  }catch(e){ m.textContent='Invalid credentials'; }
+});
+$('#btnLogout').addEventListener('click', async ()=>{ try{ await api('/api/logout',{method:'POST'}) }catch{} location.href='index.html'; });
+
+/* ===== Nav ===== */
+document.querySelectorAll('.navitem[data-panel]').forEach(i=>{
+  i.addEventListener('click', async ()=>{
+    const p=i.dataset.panel; show(p);
+    if(p==='messages') await loadMessages();
+    if(p==='home') await loadHome();
+    if(p==='company') await loadCompany();
+    if(p==='services') await loadServices();
+    if(p==='projects') await loadProjects();
+    if(p==='about') await loadAbout();
+    if (p === 'footer') await loadFooter();
+    if(p==='users')  await loadUsers?.();
+  });
+});
+
+/* ===== KPI ===== */
+async function refreshKPI(){
+  try{
+    const s=await api('/api/content/services.json'); const p=await api('/api/content/projects.json');
+    $('#kpiServices').textContent=(s.data||[]).length;
+    $('#kpiProjects').textContent=(p.data||[]).length;
+    $('#kpiUpdated').textContent=new Date().toLocaleString();
+  }catch{}
+}
+
+
+// ===== COMPANY (load + upload + save) =====
+// === COMPANY ===
+async function loadCompany(){
+  try{
+    const d=(await api('/api/content/company.json')).data||{};
+    // basic
+    $('#c_name').value = d.name || '';
+    $('#c_desc').value = d.description || '';
+    $('#c_vals').value = (d.values || []).join('\n');
+
+    // about data
+    const ab = d.about || {};
+    $('#a_title').value = ab.title || '';
+    $('#a_intro').value = ab.intro || '';
+    $('#a_img').value   = ab.image || '';
+    $('#a_body').value  = (ab.body || []).join('\n\n');
+
+    const pv = $('#a_img_prev');
+    if (pv){
+      if (ab.image){ pv.src = ab.image; pv.style.display = ''; }
+      else { pv.style.display = 'none'; }
+    }
+  }catch{
+    $('#msgCompany').textContent='Failed to load company.json';
+  }
+}
+
+$('#a_img_upload')?.addEventListener('click', async ()=>{
+  const file = $('#a_img_file')?.files?.[0];
+  const msg  = $('#a_img_msg');
+  if (!file){ msg.textContent='Choose an image'; return; }
+  msg.textContent='Uploading...';
+  try{
+    const fd = new FormData(); fd.append('image', file);
+    const r  = await fetch('/api/upload', { method:'POST', body:fd, credentials:'include' });
+    const out= await r.json();
+    if (!out?.ok || !out.path) throw 0;
+    $('#a_img').value = out.path;
+    const pv = $('#a_img_prev'); if (pv){ pv.src=out.path; pv.style.display=''; }
+    msg.textContent='Uploaded ✔'; setTimeout(()=>msg.textContent='',1200);
+  }catch{ msg.textContent='Upload error'; }
+});
+
+$('#saveCompany').addEventListener('click', async ()=>{
+  const bodyRaw = ($('#a_body').value || '').replace(/\r/g,'');
+  const paragraphs = bodyRaw.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+
+  const payload = {
+    name: $('#c_name').value.trim(),
+    description: $('#c_desc').value.trim(),
+    values: $('#c_vals').value.split('\n').map(x=>x.trim()).filter(Boolean),
+    about: {
+      title: $('#a_title').value.trim(),
+      intro: $('#a_intro').value.trim(),
+      image: $('#a_img').value.trim(),
+      body:  paragraphs
+    }
+  };
+
+  try{
+    await api('/api/content/company.json',{ method:'PUT', body: JSON.stringify(payload) });
+    $('#msgCompany').textContent='Saved ✔';
+    setTimeout(()=>$('#msgCompany').textContent='',1200);
+  }catch{
+    $('#msgCompany').textContent='Save failed';
+  }
+});
+
+
+
+/* ===== SERVICES ===== */
+function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+function escapeAttr(s){ return escapeHTML(s).replace(/"/g,'&quot;'); }
+
+function serviceCard(s){
+  const c = el('div',{class:'card service'},`
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <label>Title <input class="s-title" value="${escapeHTML(s.title||'')}"></label>
+      <label style="display:none">Image URL <input class="s-image" value="${escapeAttr(s.image||'')}"></label>
+    </div>
+    <img class="img-prev" src="${s.image?escapeAttr(s.image):''}" alt="" style="${s.image?'':'display:none'}">
+    <div class="row">
+      <input type="file" class="s-file" accept=".png,.jpg,.jpeg,.webp,.svg">
+      <button type="button" class="btn s-upload">Upload image</button>
+      <span class="tiny muted s-upload-msg"></span>
+    </div>
+    <label>Description <textarea class="s-desc" rows="3">${escapeHTML(s.desc||'')}</textarea></label>
+    <div class="row">
+      <label class="tiny"><input type="checkbox" class="s-pub" ${s.published===false?'':'checked'}> Visible on site</label>
+      <button type="button" class="btn danger" onclick="this.closest('.service').remove()">Delete</button>
+    </div>
+  `);
+  const file=c.querySelector('.s-file'), btn=c.querySelector('.s-upload'), msg=c.querySelector('.s-upload-msg'), prev=c.querySelector('.img-prev'), url=c.querySelector('.s-image');
+  btn.onclick=async ()=>{ if(!file.files[0]){msg.textContent='Choose an image';return;}
+    msg.textContent='Uploading...';
+    try{ const fd=new FormData(); fd.append('image',file.files[0]); const r=await fetch('/api/upload',{method:'POST',body:fd,credentials:'include'}); const out=await r.json(); if(!out.ok) throw 0; url.value=out.path; prev.src=out.path; prev.style.display=''; msg.textContent='Uploaded ✔'; setTimeout(()=>msg.textContent='',1200);}catch{ msg.textContent='Upload error'; } };
+  return c;
+}
+async function loadServices(){
+  const list=$('#servicesList'); list.innerHTML='';
+  try{ const out=await api('/api/content/services.json'); (out.data||[]).forEach(s=> list.appendChild(serviceCard(s))); }
+  catch{ $('#msgServices').textContent='Cannot load services.json'; }
+}
+$('#addService').addEventListener('click', ()=> $('#servicesList').appendChild(serviceCard({title:'',desc:'',image:'',published:true})));
+$('#saveServices').addEventListener('click', async ()=>{
+  const body=Array.from(document.querySelectorAll('#servicesList .service')).map(card=>({
+    title:card.querySelector('.s-title').value.trim(),
+    image:card.querySelector('.s-image').value.trim(),
+    desc: card.querySelector('.s-desc').value.trim(),
+    published: card.querySelector('.s-pub').checked
+  }));
+  try{ await api('/api/content/services.json',{method:'PUT', body:JSON.stringify(body)}); $('#msgServices').textContent='Saved ✔'; setTimeout(()=>$('#msgServices').textContent='',1200); await refreshKPI(); }catch{ $('#msgServices').textContent='Save failed'; }
+});
+
+/* ===== PROJECTS ===== */
+function projectCard(p){
+  const c = el('div',{class:'card project'},`
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <label>Name <input class="p-name" value="${escapeHTML(p.name||'')}"></label>
+      <label style="display:none">Image URL <input class="p-image" value="${escapeAttr(p.image||'')}"></label>
+    </div>
+    <img class="img-prev" src="${p.image?escapeAttr(p.image):''}" alt="" style="${p.image?'':'display:none'}">
+    <div class="row">
+      <input type="file" class="p-file" accept=".png,.jpg,.jpeg,.webp,.svg">
+      <button type="button" class="btn p-upload">Upload image</button>
+      <span class="tiny muted p-upload-msg"></span>
+    </div>
+    <label>Summary <textarea class="p-summary" rows="3">${escapeHTML(p.summary||'')}</textarea></label>
+    <div class="row">
+      <label class="tiny"><input type="checkbox" class="p-pub" ${p.published===false?'':'checked'}> Visible on site</label>
+      <button type="button" class="btn danger" onclick="this.closest('.project').remove()">Delete</button>
+    </div>
+  `);
+  const file=c.querySelector('.p-file'), btn=c.querySelector('.p-upload'), msg=c.querySelector('.p-upload-msg'), prev=c.querySelector('.img-prev'), url=c.querySelector('.p-image');
+  btn.onclick=async ()=>{ if(!file.files[0]){msg.textContent='Choose an image';return;}
+    msg.textContent='Uploading...';
+    try{ const fd=new FormData(); fd.append('image',file.files[0]); const r=await fetch('/api/upload',{method:'POST',body:fd,credentials:'include'}); const out=await r.json(); if(!out.ok) throw 0; url.value=out.path; prev.src=out.path; prev.style.display=''; msg.textContent='Uploaded ✔'; setTimeout(()=>msg.textContent='',1200);}catch{ msg.textContent='Upload error'; } };
+  return c;
+}
+async function loadProjects(){
+  const list=$('#projectsList'); list.innerHTML='';
+  try{ const out=await api('/api/content/projects.json'); (out.data||[]).forEach(p=> list.appendChild(projectCard(p))); }
+  catch{ $('#msgProjects').textContent='Cannot load projects.json'; }
+}
+$('#addProject').addEventListener('click', ()=> $('#projectsList').appendChild(projectCard({name:'',summary:'',image:'',published:true})));
+$('#saveProjects').addEventListener('click', async ()=>{
+  const body=Array.from(document.querySelectorAll('#projectsList .project')).map(card=>({
+    name:card.querySelector('.p-name').value.trim(),
+    image:card.querySelector('.p-image').value.trim(),
+    summary:card.querySelector('.p-summary').value.trim(),
+    published: card.querySelector('.p-pub').checked
+  }));
+  try{ await api('/api/content/projects.json',{method:'PUT', body:JSON.stringify(body)}); $('#msgProjects').textContent='Saved ✔'; setTimeout(()=>$('#msgProjects').textContent='',1200); await refreshKPI(); }catch{ $('#msgProjects').textContent='Save failed'; }
+});
+
+/* ===== ABOUT ===== */
+async function loadAbout(){
+  try{
+    const d=(await api('/api/content/about.json')).data||{};
+    $('#a_title').value=d.title||''; $('#a_intro').value=d.intro||''; $('#a_bullets').value=(d.bullets||[]).join('\n');
+  }catch{ $('#msgAbout').textContent='Cannot load about.json'; }
+}
+$('#saveAbout').addEventListener('click', async ()=>{
+  const body={ title:$('#a_title').value.trim(), intro:$('#a_intro').value.trim(), bullets:$('#a_bullets').value.split('\n').map(x=>x.trim()).filter(Boolean) };
+  try{ await api('/api/content/about.json',{method:'PUT', body:JSON.stringify(body)}); $('#msgAbout').textContent='Saved ✔'; setTimeout(()=>$('#msgAbout').textContent='',1200);}catch{ $('#msgAbout').textContent='Save failed'; }
+});
+
+/* ===== CONTACT ===== */
+async function loadContact(){
+  try{
+    const d=(await api('/api/content/contact.json')).data||{};
+    $('#ct_email').value=d.email||''; $('#ct_phone').value=d.phone||''; $('#ct_location').value=d.location||''; $('#ct_map').value=d.mapEmbed||'';
+  }catch{ $('#msgContact').textContent='Cannot load contact.json'; }
+}
+$('#saveContact').addEventListener('click', async ()=>{
+  const body={ email:$('#ct_email').value.trim(), phone:$('#ct_phone').value.trim(), location:$('#ct_location').value.trim(), mapEmbed:$('#ct_map').value.trim() };
+  try{ await api('/api/content/contact.json',{method:'PUT', body:JSON.stringify(body)}); $('#msgContact').textContent='Saved ✔'; setTimeout(()=>$('#msgContact').textContent='',1200);}catch{ $('#msgContact').textContent='Save failed'; }
+});
+</script>
+
+<script>
+let homeSlides = []; // image paths
+
+function renderSlides(){
+  const wrap = document.getElementById('homeSlides');
+  wrap.innerHTML = '';
+  homeSlides.forEach((src, i) => {
+    const card = el('div', { class:'card' }, `
+      <img src="${escapeAttr(src)}" alt="" class="img-prev" style="width:100%;height:120px;object-fit:cover;border-radius:8px">
+      <div class="row" style="justify-content:space-between;margin-top:6px">
+        <div class="tiny muted">Slide ${i+1}</div>
+        <div class="row">
+          <button class="btn up"   data-i="${i}" type="button">Up</button>
+          <button class="btn down" data-i="${i}" type="button">Down</button>
+          <button class="btn danger del" data-i="${i}" type="button">Delete</button>
+        </div>
+      </div>
+    `);
+    wrap.appendChild(card);
+  });
+
+  wrap.querySelectorAll('.up').forEach(b=>b.onclick = ()=>{ const i=+b.dataset.i; if(i>0){ [homeSlides[i-1],homeSlides[i]]=[homeSlides[i],homeSlides[i-1]]; renderSlides(); }});
+  wrap.querySelectorAll('.down').forEach(b=>b.onclick = ()=>{ const i=+b.dataset.i; if(i<homeSlides.length-1){ [homeSlides[i+1],homeSlides[i]]=[homeSlides[i],homeSlides[i+1]]; renderSlides(); }});
+  wrap.querySelectorAll('.del').forEach(b=>b.onclick = ()=>{ const i=+b.dataset.i; homeSlides.splice(i,1); renderSlides(); });
+}
+
+// multiple upload
+document.getElementById('btnAddSlides').addEventListener('click', async ()=>{
+  const files = [...document.getElementById('homeSlideFiles').files];
+  const msg = document.getElementById('msgSlides');
+  if (!files.length){ msg.textContent = 'Choose images'; return; }
+  msg.textContent = 'Uploading...';
+
+  try{
+    for(const f of files){
+      const fd = new FormData(); fd.append('image', f);
+      const r = await fetch('/api/upload', { method:'POST', body:fd, credentials:'include' });
+      const out = await r.json();
+      if(out?.ok && out.path) homeSlides.push(out.path);
+    }
+    document.getElementById('homeSlideFiles').value = '';
+    renderSlides();
+    msg.textContent = 'Added ✔'; setTimeout(()=> msg.textContent='', 1200);
+  }catch(e){ msg.textContent = 'Upload error'; }
+});
+
+// LOAD Home (with slides)
+async function loadHome(){
+  try{
+    const d = (await api('/api/content/home.json')).data || {};
+    const h = d.hero || {}, s = d.sections || {};
+    document.getElementById('h_headline').value = h.headline || '';
+    document.getElementById('h_sub').value      = h.subheadline || '';
+    document.getElementById('h_ctaText').value  = h.ctaText || '';
+    document.getElementById('h_ctaHref').value  = h.ctaHref || '';
+    document.getElementById('h_image').value    = h.image || '';
+    document.getElementById('h_cta2Text').value = h.cta2Text || '';
+    document.getElementById('h_cta2Href').value = h.cta2Href || '';
+    document.getElementById('h_bullets').value  = (h.bullets || []).join('\n');
+
+    homeSlides = Array.isArray(h.slides) ? h.slides.slice() : [];
+    renderSlides();
+
+    document.getElementById('h_servicesTitle').value  = (s.servicesTitle || '');
+    document.getElementById('h_projectsTitle').value  = (s.projectsTitle || '');
+    document.getElementById('h_servicesSeeAll').value = (s.servicesSeeAll || '');
+    document.getElementById('h_projectsSeeAll').value = (s.projectsSeeAll || '');
+  }catch(e){ document.getElementById('msgHome').textContent = 'Cannot load home.json'; }
+}
+
+// SAVE Home (slides included)
+document.getElementById('saveHome').addEventListener('click', async ()=>{
+  const body = {
+    hero: {
+      headline:    document.getElementById('h_headline').value.trim(),
+      subheadline: document.getElementById('h_sub').value.trim(),
+      ctaText:     document.getElementById('h_ctaText').value.trim(),
+      ctaHref:     document.getElementById('h_ctaHref').value.trim(),
+      cta2Text:    document.getElementById('h_cta2Text').value.trim(),
+      cta2Href:    document.getElementById('h_cta2Href').value.trim(),
+      bullets:     document.getElementById('h_bullets').value.split('\n').map(x=>x.trim()).filter(Boolean),
+      image:       document.getElementById('h_image').value.trim(),
+      slides:      homeSlides
+    },
+    sections: {
+      servicesTitle:  document.getElementById('h_servicesTitle').value.trim(),
+      projectsTitle:  document.getElementById('h_projectsTitle').value.trim(),
+      servicesSeeAll: document.getElementById('h_servicesSeeAll').value.trim(),
+      projectsSeeAll: document.getElementById('h_projectsSeeAll').value.trim()
+    }
+  };
+  try{
+    await api('/api/content/home.json',{ method:'PUT', body: JSON.stringify(body) });
+    document.getElementById('msgHome').textContent = 'Saved ✔';
+    setTimeout(()=> document.getElementById('msgHome').textContent='', 1200);
+  }catch(e){ document.getElementById('msgHome').textContent = 'Save failed'; }
+});
+</script>
+
+<script>
+function esc(s){ return String(s||'').replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;' }[m])); }
+
+let __msgs = [];
+let __cur  = null;
+
+async function loadMessages(){
+  const listEl = document.getElementById('msgList');
+  listEl.innerHTML = '<li class="muted">Loading…</li>';
+
+  try{
+    const r = await fetch('/api/messages', { credentials:'include' });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const out = await r.json();
+    __msgs = out.data || [];
+
+    if(!__msgs.length){ listEl.innerHTML = '<li class="muted">No messages.</li>'; return; }
+
+    listEl.innerHTML = '';
+    __msgs.forEach(m=>{
+      const li = document.createElement('li');
+      li.className = 'msg-item';
+      li.dataset.id = m.id;
+      li.innerHTML = `
+        <div class="msg-top">
+          <div>
+            <span class="msg-name">${esc(m.name)}</span>
+            <span class="muted">&lt;${esc(m.email)}&gt;</span>
+          </div>
+          <div class="msg-meta tiny muted">${new Date(m.createdAt).toLocaleString()}
+            <span class="badge ${m.status==='read'?'':'unread'}">${m.status==='read'?'read':'unread'}</span>
+          </div>
+        </div>
+        <div class="msg-preview">${esc(m.body)}</div>
+      `;
+      li.onclick = ()=> openMsg(m.id);
+      listEl.appendChild(li);
+    });
+
+  }catch(e){
+    listEl.innerHTML = `<li class="muted">Cannot load messages (${e.message}).</li>`;
+  }
+}
+
+function openMsg(id){
+  __cur = __msgs.find(x=>x.id===id);
+  if(!__cur) return;
+  document.getElementById('msgTitle').textContent = __cur.name;
+  document.getElementById('msgMeta').textContent  =
+    `${__cur.email} • ${new Date(__cur.createdAt).toLocaleString()} • ${__cur.status==='read'?'read':'unread'}`;
+  document.getElementById('msgBody').textContent  = __cur.body || '';
+
+  const toggleBtn = document.getElementById('btnToggleRead');
+  toggleBtn.textContent = (__cur.status==='read') ? 'Mark as unread' : 'Mark as read';
+
+  document.getElementById('msgModal').classList.remove('hidden');
+
+  if (__cur.status !== 'read') setMsgStatus(__cur.id, 'read', false);
+}
+
+async function setMsgStatus(id, status, reload=true){
+  try{
+    await fetch('/api/messages/'+id, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ status }),
+      credentials:'include'
+    });
+    if (reload) await loadMessages();
+    const i = __msgs.findIndex(x=>x.id===id);
+    if (i>-1) __msgs[i].status = status;
+  }catch(e){}
+}
+
+async function deleteMsg(id){
+  if(!confirm('Delete this message?')) return;
+  try{
+    await fetch('/api/messages/'+id, { method:'DELETE', credentials:'include' });
+    closeMsg();
+    await loadMessages();
+  }catch(e){}
+}
+
+function closeMsg(){
+  document.getElementById('msgModal').classList.add('hidden');
+  __cur = null;
+}
+
+document.getElementById('btnToggleRead')?.addEventListener('click', async ()=>{
+  if(!__cur) return;
+  const next = (__cur.status==='read') ? 'unread' : 'read';
+  await setMsgStatus(__cur.id, next);
+  __cur.status = next;
+  document.getElementById('msgMeta').textContent =
+    `${__cur.email} • ${new Date(__cur.createdAt).toLocaleString()} • ${next}`;
+  document.getElementById('btnToggleRead').textContent = (next==='read')?'Mark as unread':'Mark as read';
+});
+
+document.getElementById('btnDeleteMsg')?.addEventListener('click', ()=>{ if(__cur) deleteMsg(__cur.id); });
+document.getElementById('msgClose')?.addEventListener('click', closeMsg);
+document.querySelector('#msgModal .msg-backdrop')?.addEventListener('click', closeMsg);
+document.getElementById('btnRefreshMsgs')?.addEventListener('click', loadMessages);
+</script>
+
+<script>
+// === FOOTER panel ===
+function linkRow(item={label:'',href:''}){
+  const r=document.createElement('div');
+  r.className='card';
+  r.innerHTML=`
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <label>Label <input class="l-label" value="${escapeHTML(item.label||'')}"></label>
+      <label>URL <input class="l-href" value="${escapeAttr(item.href||'')}"></label>
+    </div>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn danger del" type="button">Delete</button>
+    </div>`;
+  r.querySelector('.del').onclick=()=>r.remove();
+  return r;
+}
+
+function socialRow(item={label:'',href:''}){
+  const r=document.createElement('div');
+  r.className='card';
+  r.innerHTML=`
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <label>Network name <input class="s-label" value="${escapeHTML(item.label||'')}"></label>
+      <label>URL <input class="s-href" value="${escapeAttr(item.href||'')}"></label>
+    </div>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn danger del" type="button">Delete</button>
+    </div>`;
+  r.querySelector('.del').onclick=()=>r.remove();
+  return r;
+}
+
+function setVal(id, v){
+  const el = document.getElementById(id);
+  if (el) el.value = v ?? '';
+}
+
+async function loadFooter(){
+  try{
+    let d = {};
+    try { d = (await api('/api/content/footer.json')).data || {}; } catch {}
+
+    if (!d.contact) d.contact = {};
+    if (!Array.isArray(d.links))  d.links  = [];
+    if (!Array.isArray(d.social)) d.social = [];
+
+    if (!d.brandTagline){
+      try {
+        const c = (await api('/api/content/company.json')).data || {};
+        d.brandTagline = d.brandTagline || c.description;
+      } catch {}
+    }
+    if (!d.contact.email || !d.contact.phone || !d.contact.location){
+      try {
+        const c = (await api('/api/content/contact.json')).data || {};
+        d.contact = { ...c, ...d.contact };
+      } catch {}
+    }
+
+    setVal('f_tagline',  d.brandTagline || '');
+    setVal('f_email',    d.contact.email || '');
+    setVal('f_phone',    d.contact.phone || '');
+    setVal('f_location', d.contact.location || '');
+    setVal('f_map',      d.mapEmbed || '');
+    setVal('f_copy',     d.copyright || '© {{year}} FussionComm ICT. All rights reserved.');
+
+    const L = document.getElementById('f_links');  if (L){ L.innerHTML=''; d.links.forEach(x=>L.appendChild(linkRow(x))); }
+    const S = document.getElementById('f_social'); if (S){ S.innerHTML=''; d.social.forEach(x=>S.appendChild(socialRow(x))); }
+  }catch(e){
+    console.error(e);
+    const m = document.getElementById('f_msg'); if (m) m.textContent = 'Cannot load footer.json';
+  }
+}
+
+document.getElementById('f_add_link')?.addEventListener('click', ()=>{
+  document.getElementById('f_links')?.appendChild(linkRow());
+});
+document.getElementById('f_add_social')?.addEventListener('click', ()=>{
+  document.getElementById('f_social')?.appendChild(socialRow());
+});
+
+document.getElementById('f_save')?.addEventListener('click', async ()=>{
+  const links = Array.from(document.querySelectorAll('#f_links .card')).map(c=>({
+    label: c.querySelector('.l-label').value.trim(),
+    href:  c.querySelector('.l-href').value.trim()
+  })).filter(x=>x.label && x.href);
+
+  const social = Array.from(document.querySelectorAll('#f_social .card')).map(c=>({
+    label: c.querySelector('.s-label').value.trim(),
+    href:  c.querySelector('.s-href').value.trim()
+  })).filter(x=>x.label && x.href);
+
+  const body = {
+    brandTagline: document.getElementById('f_tagline')?.value.trim() || '',
+    contact: {
+      email:    document.getElementById('f_email')?.value.trim() || '',
+      phone:    document.getElementById('f_phone')?.value.trim() || '',
+      location: document.getElementById('f_location')?.value.trim() || ''
+    },
+    mapEmbed:  document.getElementById('f_map')?.value || '',
+    links,
+    social,
+    copyright: document.getElementById('f_copy')?.value.trim()
+      || '© {{year}} FussionComm ICT. All rights reserved.'
+  };
+
+  try{
+    await api('/api/content/footer.json', { method:'PUT', body: JSON.stringify(body) });
+    const m = document.getElementById('f_msg'); if (m){ m.textContent='Saved ✔'; setTimeout(()=>m.textContent='',1200); }
+  }catch(e){
+    console.error(e);
+    const m = document.getElementById('f_msg'); if (m) m.textContent='Save failed';
+  }
+});
+
+document.querySelector('.navitem[data-panel="footer"]')?.addEventListener('click', ()=>{
+  show('footer');
+  loadFooter();
+});
+
+async function loadUsers(){
+  const list = document.getElementById('usersList');
+  const msg  = document.getElementById('u_msg');
+  list.innerHTML = '<div class="muted">Loading…</div>'; msg.textContent='';
+
+  try{
+    const q = document.getElementById('u_q').value.trim();
+    const f = document.getElementById('u_filter').value;
+    const out = await api('/api/users?q='+encodeURIComponent(q)+'&filter='+encodeURIComponent(f), { method:'GET' });
+    const users = out.data || [];
+    list.innerHTML = users.length ? '' : '<div class="muted">No users.</div>';
+    users.forEach(u => list.appendChild(userRow(u)));
+  }catch(e){
+    list.innerHTML=''; msg.textContent = 'Cannot load users.';
+  }
+}
+
+function userRow(u){
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-weight:600">${u.username || '—'} <span class="muted">&lt;${u.email||''}&gt;</span></div>
+        <div class="tiny muted">
+          role: ${u.role} • status: ${u.status||'active'}
+          ${u.createdAt? ' • created: ' + new Date(u.createdAt).toLocaleString() : ''}
+          ${u.lastLogin? ' • login: ' + new Date(u.lastLogin).toLocaleString() : ''}
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn" data-act="make-admin">Admin</button>
+        <button class="btn" data-act="make-user">User</button>
+        <button class="btn" data-act="${(u.status||'active')==='blocked'?'unblock':'block'}">
+          ${ (u.status||'active')==='blocked' ? 'Unblock' : 'Block' }
+        </button>
+        <button class="btn danger" data-act="delete">Delete</button>
+      </div>
+    </div>
+  `;
+
+  card.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click', async ()=>{
+      try{
+        if (b.dataset.act==='make-admin') await api('/api/users/'+u.id,{method:'PUT',body:JSON.stringify({role:'admin'})});
+        if (b.dataset.act==='make-user')  await api('/api/users/'+u.id,{method:'PUT',body:JSON.stringify({role:'user'})});
+        if (b.dataset.act==='block')      await api('/api/users/'+u.id,{method:'PUT',body:JSON.stringify({status:'blocked'})});
+        if (b.dataset.act==='unblock')    await api('/api/users/'+u.id,{method:'PUT',body:JSON.stringify({status:'active'})});
+        if (b.dataset.act==='delete'){
+          if(!confirm('Delete this user?')) return;
+          await api('/api/users/'+u.id,{method:'DELETE'});
+        }
+        await loadUsers();
+      }catch(e){
+        document.getElementById('u_msg').textContent = 'Error: '+(e.message||'');
+      }
+    });
+  });
+
+  return card;
+}
+
+document.querySelector('.navitem[data-panel="users"]')?.addEventListener('click', ()=>{ show('users'); loadUsers(); });
+document.getElementById('u_reload')?.addEventListener('click', loadUsers);
+document.getElementById('u_q')?.addEventListener('input', ()=>{ clearTimeout(window.__u_t); window.__u_t=setTimeout(loadUsers,300); });
+document.getElementById('u_filter')?.addEventListener('change', loadUsers);
+</script>
+
+
+
+<script>
+// stocăm baza ca să păstrăm name/description/values fără UI
+window.__companyBase = { name:'', description:'', values:[] };
+
+/* === LOAD Company (About-first) === */
+async function loadCompany(){
+  try{
+    const d = (await api('/api/content/company.json')).data || {};
+
+    // reține baza pt. save fără câmpuri în UI
+    window.__companyBase = {
+      name: d.name || '',
+      description: d.description || '',
+      values: Array.isArray(d.values) ? d.values : []
+    };
+
+    // about
+    const a = d.about || {};
+    document.getElementById('ab_title').value       = a.title || '';
+    document.getElementById('ab_subtitle').value    = a.subtitle || a.intro || '';
+    document.getElementById('ab_image').value       = a.image || '';
+    document.getElementById('ab_sum_title').value   = a.summaryTitle || '';
+    document.getElementById('ab_summary').value     = a.summary || '';
+    document.getElementById('ab_body').value        = (a.body || []).join('\n');
+
+    const prev = document.getElementById('ab_prev');
+    if (a.image){ prev.src = a.image; prev.style.display = 'block'; }
+    else { prev.style.display = 'none'; }
+
+    // highlights
+    const H = document.getElementById('ab_highlights'); H.innerHTML='';
+    (a.highlights || []).forEach(h => H.appendChild(highlightRow(h)));
+
+    // stats
+    const S = document.getElementById('ab_stats'); S.innerHTML='';
+    (a.stats || []).forEach(s => S.appendChild(statRow(s)));
+
+    document.getElementById('msgCompany').textContent='';
+  }catch{
+    document.getElementById('msgCompany').textContent='Failed to load company.json';
+  }
+}
+
+/* add buttons */
+document.getElementById('ab_add_highlight')?.addEventListener('click', ()=>{
+  document.getElementById('ab_highlights')?.appendChild(highlightRow());
+});
+document.getElementById('ab_add_stat')?.addEventListener('click', ()=>{
+  document.getElementById('ab_stats')?.appendChild(statRow());
+});
+
+/* image upload */
+document.getElementById('ab_upload')?.addEventListener('click', async ()=>{
+  const file = document.getElementById('ab_file').files[0];
+  const msg  = document.getElementById('ab_msg');
+  const prev = document.getElementById('ab_prev');
+  if(!file){ msg.textContent='Choose an image'; return; }
+  msg.textContent='Uploading...';
+  try{
+    const fd=new FormData(); fd.append('image', file);
+    const r = await fetch('/api/upload', { method:'POST', body:fd, credentials:'include' });
+    const out = await r.json();
+    if(!out?.ok || !out.path) throw 0;
+    document.getElementById('ab_image').value = out.path;
+    prev.src = out.path; prev.style.display='block';
+    msg.textContent='Uploaded ✔'; setTimeout(()=>msg.textContent='',1200);
+  }catch{ msg.textContent='Upload failed'; }
+});
+
+/* SAVE Company (păstrăm name/values din baza încărcată) */
+document.getElementById('saveCompany')?.addEventListener('click', async ()=>{
+  const about = {
+    title:        document.getElementById('ab_title').value.trim(),
+    subtitle:     document.getElementById('ab_subtitle').value.trim(),
+    image:        document.getElementById('ab_image').value.trim(),
+    summaryTitle: document.getElementById('ab_sum_title').value.trim(),
+    summary:      document.getElementById('ab_summary').value.trim(),
+    highlights:   Array.from(document.querySelectorAll('#ab_highlights .card')).map(c=>({
+                    title: c.querySelector('.h-title').value.trim(),
+                    text:  c.querySelector('.h-text').value.trim()
+                  })).filter(x=>x.title||x.text),
+    body:         document.getElementById('ab_body').value.split('\n').map(x=>x.trim()).filter(Boolean),
+    stats:        Array.from(document.querySelectorAll('#ab_stats .card')).map(c=>({
+                    value: c.querySelector('.s-value').value.trim(),
+                    label: c.querySelector('.s-label').value.trim()
+                  })).filter(x=>x.value||x.label)
+  };
+
+  // păstrăm ce nu mai e în UI
+  const base = window.__companyBase || {};
+  const body = {
+    name:        base.name,
+    description: base.description,
+    values:      base.values,
+    about
+  };
+
+  try{
+    await api('/api/content/company.json', { method:'PUT', body: JSON.stringify(body) });
+    const m=document.getElementById('msgCompany'); m.textContent='Saved ✔'; setTimeout(()=>m.textContent='',1200);
+  }catch{
+    const m=document.getElementById('msgCompany'); m.textContent='Save failed';
+  }
+});
+</script>
+
+
+<script defer src="assets/cookie.js"></script>
+
+</body>
+</html>

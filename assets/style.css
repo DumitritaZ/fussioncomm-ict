@@ -42,6 +42,8 @@ a:hover{opacity:.9}
 .section{padding:4rem 0}
 .section.alt{background:var(--bg-soft)}
 .cards{display:grid;gap:1rem}
+.tiny { font-size: 0.9rem; opacity: .85; }
+
 .cards.three{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow)}
 .card.project .thumb{height:140px;border-radius:12px;background:linear-gradient(135deg,rgba(59,130,246,.25),rgba(34,211,238,.25))}
@@ -68,3 +70,324 @@ label{display:block;margin-bottom:.75rem}
 .actions{display:flex;gap:.6rem;flex-wrap:wrap}
 .bullets{margin:0;padding-left:1.1rem}
 .bullets li{margin:.25rem 0}
+
+
+.grid-3 { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px; }
+@media (max-width: 900px){ .grid-3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px){ .grid-3 { grid-template-columns: 1fr; } }
+
+.card { background: #0e1424; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; overflow: hidden; }
+.card-media img { width: 100%; height: 180px; object-fit: cover; display:block; }
+.card-body { padding: 12px; }
+.card-body h4 { margin: 0 0 6px 0; }
+/* === FOOTER v2 (Neon Glass) === */
+.cta-band {
+  position: relative;
+  padding: 56px 0 36px;
+  background: radial-gradient(1200px 300px at 50% -80px, rgba(99,180,255,.20), transparent 60%),
+              linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0));
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.cta-card {
+  max-width: 980px; margin: 0 auto; padding: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.cta-title { text-align:center; margin:0 0 10px; font-size: clamp(1.4rem, 2.5vw, 1.9rem); }
+.cta-actions { display:flex; justify-content:center; }
+.btn-cta {
+  display:inline-block; padding: .9rem 1.4rem; border-radius: 999px;
+  background: linear-gradient(135deg, #5b8cff, #3fd6e9);
+  color:#071225; font-weight:700; border:0; text-align:center;
+  transform: translateZ(0);
+}
+.btn-cta:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+.footer {
+  background: linear-gradient(180deg, #0e1320, #0b101c);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 28px 0 18px;
+}
+.footer-grid {
+  display:grid; gap: 18px; align-items:start;
+  grid-template-columns: 2fr 1fr 1fr;
+}
+@media (max-width: 900px){
+  .cta-card{ border-radius: 18px; }
+  .footer-grid{ grid-template-columns: 1fr; }
+}
+.footer .brandline { display:flex; gap:10px; align-items:center; font-weight:700; }
+.footer .logo-sm { width:26px; height:26px }
+.footer h4 { margin: 0 0 8px; }
+.footer ul { margin:0; padding:0; list-style:none; display:grid; gap:8px; }
+.footer a { color:#cfe6ff; opacity:.9 }
+.footer a:hover { opacity:1; text-decoration:underline; }
+.footer .legal { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.07); opacity:.8; font-size:.92rem; }
+.footer .muted { opacity:.85; }
+.link-pill { display:inline-flex; align-items:center; gap:8px; padding:.35rem .6rem; border:1px solid rgba(255,255,255,.14); border-radius:999px; }
+
+
+.footer-b{background:#0b111d}
+.footer-b .accent{height:3px;background:linear-gradient(90deg,#5b8cff,#31d7e7)}
+.footer-b .wrap{max-width:1120px;margin:0 auto;padding:28px 16px;display:grid;gap:20px;grid-template-columns:1.6fr 1fr 1fr}
+.footer-b h4{margin:0 0 6px}
+.footer-b ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.footer-b a{color:#dfe8ff;opacity:.9}
+.footer-b a:hover{opacity:1}
+.footer-b .brandline{display:flex;gap:10px;align-items:center;font-weight:700}
+.footer-b .logo-sm{width:22px;height:22px}
+.footer-b .legal{opacity:.75;text-align:center;border-top:1px solid rgba(255,255,255,.08);padding:10px 16px}
+@media(max-width:900px){.footer-b .wrap{grid-template-columns:1fr}}
+
+
+/* ===== HERO slider ===== */
+.slider{
+  position: relative; width: 100%;
+  aspect-ratio: 16/9;               /* ajustează automat înălțimea */
+  border-radius: 24px; overflow: hidden;
+  background: linear-gradient(180deg,#123,#0b1a24);
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.slider img{
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0; transition: opacity .8s ease;
+}
+.slider img.active{ opacity: 1; }
+.slider .dots{
+  position:absolute; left:50%; bottom:12px; transform:translateX(-50%);
+  display:flex; gap:8px;
+}
+.slider .dot{
+  width:8px;height:8px;border-radius:999px;
+  background: rgba(255,255,255,.45);
+}
+.slider .dot.active{ background:#fff; }
+
+
+/* ===== Contact page – layout compact & centrat ===== */
+
+/* formular mai îngust și centrat */
+form.contact {
+  max-width: 640px;           /* lățimea panoului */
+  margin: 0 auto;             /* centrează pe orizontală */
+}
+
+/* Nume + Email una sub alta */
+form.contact .grid-2 {
+  display: grid;
+  grid-template-columns: 1fr; /* o singură coloană */
+  gap: 12px;                  /* spațiu între câmpuri */
+}
+
+/* câmpuri mai „scunde” și compacte */
+form.contact input[type="text"],
+form.contact input[type="email"],
+form.contact textarea {
+  font-size: .95rem;
+  padding: .55rem .75rem;     /* mai puțin padding = rânduri mai mici */
+  border-radius: 10px;
+}
+
+/* textarea mai mică implicit (poți modifica valoarea) */
+form.contact textarea {
+  min-height: 140px;          /* înălțime implicită mai mică */
+  resize: vertical;           /* utilizatorul o poate mări la nevoie */
+}
+
+/* micșorează spațiile verticale dintre label și câmp */
+form.contact label {
+  margin: 8px 0 4px;
+}
+
+/* butonul „Trimite” pe centru, mai compact */
+form.contact .btn {
+  display: block;
+  margin: 10px auto 0;        /* centru */
+  padding: .55rem 1.1rem;
+}
+
+/* mesajul de status sub buton, centrat */
+#contact-status {
+  text-align: center;
+  margin-top: 6px;
+  font-size: .9rem;
+  opacity: .9;
+}
+
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:2.5rem;align-items:center}
+@media (max-width:1000px){.hero-grid{grid-template-columns:1fr}}
+
+.hero-slider{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;background:#0b1220}
+.hero-slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
+.hero-slider img.active{opacity:1}
+.hero-slider .dots{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);display:flex;gap:6px}
+.hero-slider .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45)}
+.hero-slider .dot.active{background:#fff}
+.hero-fallback{width:100%;border-radius:18px;display:none}
+/* dimensiune logo în header */
+.site-header .logo {
+  height: 48px;     /* alege 40–48px pe desktop */
+  width: auto;
+  display: block;
+  line-height: 0;   /* elimină „alinierea pe baseline” */
+}
+
+/* pe ecrane mari, puțin mai mare */
+@media (min-width: 1500px) {
+  .site-header .logo { height: 44px; }
+}
+
+/* pe mobil, mai mic */
+@media (max-width: 1200px) {
+  .site-header .logo { height: 32px; }
+}
+
+/* asigură vertical centrat */
+.site-header .brand { 
+  display: flex; 
+  align-items: center; 
+  gap: .5rem; 
+}
+/* pe ecrane mari, puțin mai mare */
+@media (min-width: 1200px) {
+  .site-header .logo { height: 44px; }
+}
+
+/* pe mobil, mai mic */
+@media (max-width: 640px) {
+  .site-header .logo { height: 32px; }
+}
+
+/* asigură vertical centrat */
+.site-header .brand { 
+  display: flex; 
+  align-items: center; 
+  gap: .5rem; 
+}
+
+/* Footer: aliniere logo + text */
+.footer-b .brandline{
+  display:flex;
+  align-items:center;
+  gap:.75rem;           /* spațiu între icon și nume */
+}
+
+/* Dimensiunea logo-ului din footer */
+.footer-b .logo-sm{
+  height: 48px;         /* alege 40–48px; ca în header */
+  width: auto;
+  display: block;
+}
+
+/* Responsive (opțional) */
+@media (min-width: 1200px){
+  .footer-b .logo-sm{ height: 44px; }
+}
+@media (max-width: 640px){
+  .footer-b .logo-sm{ height: 32px; }
+}
+
+
+/* CTA: nu mai întinde copiii pe toată lățimea */
+section.cta .stack{
+  align-items: center;          /* oprește stretch-ul pe lățime */
+}
+
+/* Buton îngust, după conținut, și centrat */
+section.cta .btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;                  /* ia lățimea după text */
+  padding: .70rem 1.1rem;       /* ajustează padding-ul dacă vrei mai „slab” */
+  max-width: none;
+}
+
+
+/* Ascunde numele firmei în footer, dar nu strică JS-ul */
+.footer-b .brandline strong { display: none; }
+
+/* === MAP CARD === */
+.map-card{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(900px 300px at 30% -150px, rgba(99,180,255,.12), transparent 60%),
+              linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0));
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 18px 50px rgba(0,0,0,.28);
+}
+.map-card::before{
+  content:"";
+  position:absolute; inset:-1px; border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #5b8cff55, #22d3ee55);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; /* contur subtil */
+}
+.map-ratio{
+  position: relative; width:100%; aspect-ratio: 16/9; /* responsive */
+}
+.map-card iframe{
+  position:absolute; inset:0; width:100%; height:100%; border:0;
+  filter: saturate(1.03) contrast(1.01);
+}
+
+/* variantă 2 col: hartă + detalii */
+.map-grid{ display:grid; gap:20px; grid-template-columns: 1.5fr .9fr; align-items:start; }
+@media (max-width: 980px){ .map-grid{ grid-template-columns: 1fr; } }
+.map-info{
+  background: var(--card); border:1px solid rgba(255,255,255,.10);
+  border-radius: 16px; padding: 14px;
+}
+.map-info h4{ margin:0 0 8px; }
+.map-info ul{ margin:0; padding:0; list-style:none; display:grid; gap:8px; }
+.map-info li span{ opacity:.85 }
+
+
+/* === Footer: social icons === */
+.footer-b .social-list{
+  display:flex; gap:10px; flex-wrap:wrap;
+  list-style:none; margin:0; padding:0;
+}
+.footer-b .social-link{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:#0f1628; transition:transform .15s, filter .15s;
+}
+.footer-b .social-link:hover{ transform:translateY(-1px); filter:brightness(1.08); }
+.footer-b .social-link svg{ width:18px; height:18px; fill:#dfe8ff; opacity:.9 }
+
+.topbar { display:flex; justify-content:space-between; align-items:right; }
+
+/* About layout */
+.about-content { clear: both; margin-top: .25rem; }
+.about-photo { float: right; width: min(300px, 35vw); max-width: 100%; border-radius: 12px; margin: .35rem 0 .9rem 20px; }
+.about-text { white-space: pre-wrap; }
+
+/* Highlights list */
+#about-highlights li { margin-bottom: .6rem; }
+#about-highlights li p { margin: .25rem 0 0; }
+
+/* Stats grid */
+.about-stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 12px; }
+.about-stats .stat { border: 1px solid var(--line, #1e2636); background: rgba(255,255,255,.03); border-radius: 12px; padding: 12px; }
+.about-stats .stat .stat-value { font-size: 1.6rem; font-weight: 700; }
+
+@media (max-width: 800px){
+  .about-photo { float: none; display: block; margin: 8px auto 16px; width: min(75%, 360px); }
+}
+
+/* show/hide password */
+.pw-wrap{display:block; position:relative}
+.pw-wrap input{padding-right:2.4rem}
+.pw-toggle{
+  position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  background:transparent; border:0; cursor:pointer; color:var(--muted);
+  padding:4px; border-radius:8px;
+}
+.pw-toggle:focus{outline:2px solid var(--brand2); outline-offset:2px}

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>About — FussionComm ICT</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Despre • FussionComm ICT</title>
-  <meta name="description" content="FussionComm ICT — soluții ITC agile pentru startup‑uri și IMM‑uri. Site-uri rapide, scalabile și ușor de administrat." />
+  <meta name="description" content="About FussionComm ICT — who we are, what we do, and why teams trust us." />
+  <link rel="canonical" href="https://fussioncomm.ro/about.html">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
@@ -12,65 +14,195 @@
   <script defer src="assets/script.js"></script>
   <script defer src="assets/app.js"></script>
 
+  <!-- icons / favicons (unchanged) -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
+  <link rel="mask-icon" href="/assets/favicon.svg" color="#5b8cff">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+
+  <style>
+    /* ===== About page local styles (do not affect other pages) ===== */
+    .about-hero{
+      position:relative; isolation:isolate; overflow:hidden;
+      background:radial-gradient(1200px 600px at 90% -10%, rgba(91,140,255,.25), transparent 60%);
+    }
+    .about-hero .bg{
+      position:absolute; inset:-4rem 0 0 0; z-index:-1;
+      background-position:center; background-size:cover; opacity:.35;
+      filter: saturate(1.1) contrast(1.05) blur(2px);
+      transform: scale(1.02);
+    }
+    .about-hero .veil{
+      position:absolute; inset:0; z-index:-1;
+      background:linear-gradient(180deg, rgba(14,19,32,.8), rgba(14,19,32,.96));
+    }
+    .about-hero .wrap{ padding:64px 0 28px; }
+    .kicker{letter-spacing:.16em; text-transform:uppercase; font-size:.8rem; opacity:.7}
+    .about-title{font-size:clamp(2rem,4.2vw,3rem); line-height:1.1; margin:.35rem 0 .5rem}
+    .about-lead{max-width:920px; opacity:.92}
+
+    /* split: image + text card */
+    .about-split{
+      display:grid; gap:22px; align-items:stretch;
+      grid-template-columns: minmax(300px,1.35fr) minmax(320px,1fr);
+      margin-top:26px;
+    }
+    .about-split .media{
+      border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#0f1628;
+    }
+    .about-split .media img{ display:block; width:100%; height:auto; max-height:420px; object-fit:cover; }
+    .about-split .card{
+      background:linear-gradient(180deg,#101827,#0d1426); border:1px solid var(--line);
+      border-radius:16px; padding:18px 18px 14px; box-shadow:0 10px 26px rgba(0,0,0,.14);
+    }
+    .about-split .card h3{ margin:.25rem 0 .5rem 0 }
+    .about-split .card p{ opacity:.95; margin:.5rem 0 }
+
+    /* highlight cards (optional) */
+    .about-highlights{ margin-top:22px }
+    .about-highlights .grid{ display:grid; gap:14px; grid-template-columns: repeat(3, minmax(180px,1fr)); }
+    .about-highlights .h-card{
+      background:#0f1628; border:1px solid var(--line); border-radius:14px; padding:14px 14px 12px;
+    }
+    .about-highlights .h-card h4{ margin:.15rem 0 .35rem; font-size:1.05rem }
+    .about-highlights .h-card p{ margin:0; opacity:.9 }
+
+    /* full width narrative */
+    .about-body{ margin-top:18px }
+    .about-body .paper{
+      background:#0f1628; border:1px solid var(--line); border-radius:16px; padding:18px;
+    }
+    .about-body .paper p{ margin:0 0 1rem 0; opacity:.95 }
+
+    /* slim stats strip (optional) */
+    .about-stats{
+      margin:22px 0 8px; background:#0f1623; border:1px solid var(--line);
+      border-radius:14px; padding:10px; display:grid; gap:10px;
+      grid-template-columns: repeat(4, minmax(120px,1fr));
+    }
+    .stat{ text-align:center; }
+    .stat .val{ font-weight:700; font-size:1.35rem }
+    .stat .lbl{ opacity:.8; font-size:.9rem }
+
+    /* CTA */
+    .about-cta{
+      margin:16px 0 4px; padding:16px; border-radius:14px;
+      background:linear-gradient(90deg, rgba(91,140,255,.18), rgba(110,231,255,.12));
+      border:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+    }
+    .about-cta p{ margin:0; opacity:.95 }
+    .about-cta .btn{ white-space:nowrap }
+
+    @media (max-width:980px){
+      .about-split{ grid-template-columns:1fr; }
+      .about-highlights .grid{ grid-template-columns:1fr; }
+      .about-stats{ grid-template-columns:repeat(2,1fr) }
+    }
+  </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="container nav">
-    <a class="brand" href="index.html">
-      <img src="assets/logo.svg" alt="FussionComm ICT" class="logo" />
-      <span>FussionComm ICT</span>
-    </a>
-    <input type="checkbox" id="nav-toggle" aria-label="toggle navigation">
-    <label class="burger" for="nav-toggle"><span></span><span></span><span></span></label>
-    <nav class="menu">
-      <a href="index.html">Acasă</a>
-      <a href="about.html">Despre</a>
-      <a href="services.html">Servicii</a>
-      <a href="projects.html">Proiecte</a>
-      <a href="blog.html">Blog</a>
-      <a class="btn" href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-<main class="site-main">
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html"><img src="assets/logoo.svg" alt="FussionComm ICT" class="logo"/><span></span></a>
+      <input type="checkbox" id="nav-toggle" aria-label="toggle navigation">
+      <label class="burger" for="nav-toggle"><span></span><span></span><span></span></label>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a class="btn" href="contact.html">Contact</a>
+        <a id="navAdmin" href="admin.html" style="display:none">Admin</a>
+        <a id="navLogin" href="login.html">Sign in</a>
+        <a id="navLogout" href="#" style="display:none">Sign out</a>
+      </nav>
+    </div>
+  </header>
 
-<section class="section">
-  <div class="container narrow stack gap-m">
-    <h1>Despre FussionComm ICT</h1>
-    <p>Suntem o echipă tânără de ingineri și designeri care construiesc produse web performante. Livrăm rapid, curat și cu focus pe experiența utilizatorului.</p>
-    <div class="grid-3">
-      <div><h3>Misiune</h3><p>Să oferim soluții web rapide, sigure și ușor de întreținut pentru business-urile aflate în creștere.</p></div>
-      <div><h3>Viziune</h3><p>Un web mai accesibil și performant, în care fiecare pagină aduce valoare măsurabilă.</p></div>
-      <div><h3>Valori</h3><ul class="bullets"><li>Transparență</li><li>Calitate</li><li>Impact</li></ul></div>
-    </div>
-  </div>
-</section>
+  <main class="site-main">
+    <!-- HERO -->
+    <section class="about-hero">
+      <div id="aboutHeroBg" class="bg" aria-hidden="true"></div>
+      <div class="veil" aria-hidden="true"></div>
+      <div class="container wrap">
+        <div class="kicker">About us</div>
+        <h1 id="aboutTitle" class="about-title">About FussionComm ICT</h1>
+        <p id="aboutLead" class="about-lead"></p>
 
-</main>
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <div class="brandline"><img src="assets/logo.svg" class="logo-sm" alt=""><strong>FussionComm ICT</strong></div>
-      <p class="muted">Soluții ITC agile pentru startup‑uri și IMM‑uri.</p>
+        <div class="about-split">
+          <div class="media">
+            <img id="aboutImage" src="assets/about-hero.jpg" alt="">
+          </div>
+          <div id="aboutSummary" class="card">
+            <h3>What we do</h3>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS (optional) -->
+    <section id="aboutHighlights" class="about-highlights section" style="display:none">
+      <div class="container">
+        <div class="grid" id="aboutHighlightsGrid"></div>
+      </div>
+    </section>
+
+    <!-- BODY narrative -->
+    <section class="about-body section">
+      <div class="container">
+        <div id="aboutBody" class="paper"></div>
+      </div>
+    </section>
+
+    <!-- STATS (optional) -->
+    <section id="aboutStatsWrap" class="section" style="display:none">
+      <div class="container">
+        <div id="aboutStats" class="about-stats"></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="about-cta">
+          <p><strong>Ready to move faster?</strong> Let’s turn your idea into a reliable digital product.</p>
+          <a class="btn btn-gradient" href="contact.html">Let’s talk</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-b">
+    <div class="accent"></div>
+    <div class="wrap">
+      <div>
+        <div class="brandline"><strong data-company="name">FussionComm ICT</strong></div>
+        <p class="muted" data-company="description">Agile ICT solutions for startups and SMEs.</p>
+      </div>
+      <nav>
+        <h4>Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a id="footer-email" href="#">hello@fussioncomm.example</a></li>
+          <li id="footer-location">Pretoria, South Africa</li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h4>Linkuri</h4>
-      <ul>
-        <li><a href="about.html">Despre</a></li>
-        <li><a href="services.html">Servicii</a></li>
-        <li><a href="projects.html">Proiecte</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:hello@fussioncomm.example">hello@fussioncomm.example</a></li>
-        <li>Pretoria, South Africa</li>
-      </ul>
-    </div>
-  </div>
-  <div class="container tiny">© 2025 FussionComm ICT. Toate drepturile rezervate.</div>
-</footer>
+    <div class="legal">© <span id="yearSpanB"></span> FussionComm ICT</div>
+  </footer>
+  <script>document.getElementById('yearSpanB').textContent=new Date().getFullYear();</script>
 </body>
 </html>

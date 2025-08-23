@@ -1,34 +1,26 @@
-{
-  "items": [
-    {
-      "title": "Dezvoltare website",
-      "description": "Site-uri corporate, landing pages, blog, portofoliu. Arhitectură semantică și responsive.",
-      "bullets": ["UX & UI modern", "Standard HTML5/CSS3", "Testare multi-device"]
-    },
-    {
-      "title": "UI/UX Design",
-      "description": "Wireframe, prototip, design system ușor de scalat.",
-      "bullets": ["Ierarhie clară", "Micro‑interacțiuni", "Accesibilitate AA"]
-    },
-    {
-      "title": "Optimizare performanță & SEO",
-      "description": "Audit și implementare pentru viteze excelente și vizibilitate organică.",
-      "bullets": ["Lighthouse 90+ țintă", "Schema markup", "Meta & semantică"]
-    },
-    {
-      "title": "Mentenață & securitate",
-      "description": "Întreținere, backup și monitorizare pentru un site stabil și sigur.",
-      "bullets": ["Backup regulat", "Hardening", "Monitorizare uptime"]
-    },
-    {
-      "title": "Migrare & modernizare",
-      "description": "Refactor din teme grele către variante lightweight și rapide.",
-      "bullets": ["Reducere pluginuri", "Performanță mai bună", "Fără downtime"]
-    },
-    {
-      "title": "Consultanță tehnică",
-      "description": "Recomandări pentru stiva tehnologică și bune practici.",
-      "bullets": ["Arhitectură", "Scalabilitate", "Cost optim"]
-    }
-  ]
-}
+[
+  {
+    "title": "Website Development",
+    "image": "/assets/upload/1755287779954-image.jpg",
+    "desc": "Fast, responsive, and SEO-friendly websites.",
+    "published": true
+  },
+  {
+    "title": "Web Applications",
+    "image": "/assets/upload/1755287788545-image.jpg",
+    "desc": "Modern front-end & back-end for digital products.",
+    "published": true
+  },
+  {
+    "title": "Maintenance & Hosting",
+    "image": "/assets/upload/1755287794607-image.jpg",
+    "desc": "Monitoring, updates, and performance optimization.",
+    "published": true
+  },
+  {
+    "title": "Software Developer",
+    "image": "/assets/upload/1755594381724-image.jpg",
+    "desc": "Junior software developer.",
+    "published": true
+  }
+]

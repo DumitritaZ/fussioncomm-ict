@@ -1,0 +1,24 @@
+[
+  {
+    "id": "74406cd230078b408ce7a51e",
+    "name": "Company",
+    "email": "fussioncomm@proton.me",
+    "username": "company",
+    "pass": "153fe58cfa719ae55127d7a8dbcdb994:d488527742506886a6565ae011d28b81f03408362fc037a8fef62df9e1ae50a8ee68db8495ae90cc6c846e01bc91ccc94e19da9d4bf95a4ce9b6f9b96b1b2611",
+    "role": "admin",
+    "status": "active",
+    "createdAt": 1755863588720,
+    "lastLogin": 1755944126407
+  },
+  {
+    "id": "cf82015b20b11c2113c42874",
+    "name": "Dumitrita",
+    "email": "zancanudumitrita@gmail.com",
+    "username": "dumitrita",
+    "pass": "2f70a0503feff2d36eb2eb0ae1020fd6:c03a57ba1eb26fb83ff454a15a49a0a37475a6c2b63808b9c2b5d25aff3c19b215ff3c76812fd95fda06852050217fe3de4b35a299db3ba2d250f4fe2232e6db",
+    "role": "user",
+    "status": "active",
+    "createdAt": 1755865458437,
+    "lastLogin": 1755875432701
+  }
+]

@@ -1,7 +1,14 @@
-{
-  "items": [
-    { "title": "Studiu de caz – SaaS", "summary": "+35% lead-uri după redesign și optimizare viteză.", "image": "" },
-    { "title": "Website corporate", "summary": "Arhitectură clară, accesibilitate și SEO on-page.", "image": "" },
-    { "title": "Landing campanie", "summary": "Implementare rapidă și A/B testing pentru KPI.", "image": "" }
-  ]
-}
+[
+  {
+    "name": "SME Portal",
+    "image": "/assets/upload/1755277653249-image.jpg",
+    "summary": "Client management and invoicing platform.",
+    "published": true
+  },
+  {
+    "name": "Marketplace",
+    "image": "/assets/upload/1755287826113-image.jpg",
+    "summary": "High-performance headless e-commerce.",
+    "published": true
+  }
+]

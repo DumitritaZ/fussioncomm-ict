@@ -1,11 +1,20 @@
 {
-  "name": "FussionComm ICT",
-  "email": "hello@fussioncomm.example",
-  "location": "Pretoria, South Africa",
-  "tagline": "Soluții ITC agile pentru startup‑uri și IMM‑uri.",
-  "home": {
-    "h1": "Soluții ITC agile pentru startup‑uri și IMM‑uri",
-    "lead": "Construim site‑uri rapide, scalabile și ușor de administrat — de la concept la lansare.",
-    "bullets": ["Design modern & UX clar", "SEO on‑page & performanță", "Mentenață & securitate"]
+  "name": "",
+  "description": "",
+  "values": [],
+  "about": {
+    "title": "About FussionComm ICT",
+    "subtitle": "We build fast, scalable, and easy-to-manage websites and web apps for startups and SMEs.",
+    "image": "/assets/upload/1755864477643-image.jpg",
+    "summaryTitle": "What we do",
+    "summary": "We turn ideas into reliable digital products using modern web technology and clear UX. Our team ships maintainable code, optimized SEO and performance, with ongoing care and security.",
+    "highlights": [],
+    "body": [
+      "We are a small, senior team focused on shipping business results, not just features.",
+      "Our process is simple: discover, design, build, iterate. You always see progress week by week.",
+      "We prefer proven stacks (React, Node/Express, modern CSS) and infrastructure you can actually maintain.",
+      "Security, performance and accessibility are built-in from day one, not bolted on later."
+    ],
+    "stats": []
   }
 }

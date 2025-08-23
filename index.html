@@ -1,139 +1,213 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
+
+  <!-- Page title -->
+  <title>Home — FussionComm ICT</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Agile ICT solutions for startups and SMEs. Fast, scalable websites and modern web apps with clean UX, strong engineering, and reliable delivery.">
+  <link rel="canonical" href="http://localhost:3000/index.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FussionComm ICT — Agile ICT solutions for startups & SMEs">
+  <meta property="og:description" content="Fast, scalable websites and modern web apps with clean UX, strong engineering, and reliable delivery.">
+  <meta property="og:url" content="http://localhost:3000/index.html">
+  <meta property="og:image" content="http://localhost:3000/assets/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FussionComm ICT — Agile ICT solutions for startups & SMEs">
+  <meta name="twitter:description" content="Fast, scalable websites and modern web apps with clean UX, strong engineering, and reliable delivery.">
+  <meta name="twitter:image" content="http://localhost:3000/assets/og-cover.jpg">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"FussionComm ICT",
+    "url":"http://localhost:3000/",
+    "logo":"http://localhost:3000/assets/logoo.svg",
+    "sameAs":[
+      "https://www.linkedin.com/company/...",
+      "https://www.facebook.com/..."
+    ]
+  }
+  </script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Acasă • FussionComm ICT</title>
-  <meta name="description" content="FussionComm ICT — soluții ITC agile pentru startup‑uri și IMM‑uri. Site-uri rapide, scalabile și ușor de administrat." />
+
+  <!-- Fonts & styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- App scripts -->
   <script defer src="assets/script.js"></script>
   <script defer src="assets/app.js"></script>
 
+  <!-- Favicon set -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
+  <link rel="mask-icon" href="/assets/favicon.svg" color="#5b8cff">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
 </head>
+
 <body>
 <header class="site-header">
   <div class="container nav">
     <a class="brand" href="index.html">
-      <img src="assets/logo.svg" alt="FussionComm ICT" class="logo" />
-      <span>FussionComm ICT</span>
+      <img src="assets/logoo.svg" class="logo" alt="FussionComm ICT logo" />
+      <span></span>
     </a>
     <input type="checkbox" id="nav-toggle" aria-label="toggle navigation">
     <label class="burger" for="nav-toggle"><span></span><span></span><span></span></label>
     <nav class="menu">
-      <a href="index.html">Acasă</a>
-      <a href="about.html">Despre</a>
-      <a href="services.html">Servicii</a>
-      <a href="projects.html">Proiecte</a>
-      <a href="blog.html">Blog</a>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
       <a class="btn" href="contact.html">Contact</a>
+      <a id="navLogin" href="login.html">Sign in</a>
+      <a id="navLogout" href="#" style="display:none">Sign out</a>
     </nav>
   </div>
 </header>
+
 <main class="site-main">
 
-<section class="hero">
-  <div class="container grid-2">
-    <div class="stack gap-m">
-      <h1>Soluții ITC agile pentru startup‑uri și IMM‑uri</h1>
-      <p class="lead">Construim site‑uri <strong>rapide</strong>, <strong>scalabile</strong> și ușor de administrat — de la concept la lansare.</p>
-      <div class="actions">
-        <a class="btn btn-gradient" href="contact.html">Cere ofertă</a>
-        <a class="btn ghost" href="services.html">Vezi servicii</a>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 id="home-headline"></h1>
+        <p class="muted" id="home-subheadline"></p>
+
+        <div class="row" style="gap:.6rem">
+          <a id="home-cta" class="btn btn-gradient" href="contact.html">Request a quote</a>
+          <a class="btn" href="services.html">View services</a>
+        </div>
+
+        <ul id="home-bullets" class="bullets"></ul>
       </div>
-      <ul class="bullets">
-        <li>Design modern & UX clar</li>
-        <li>SEO on‑page & performanță</li>
-        <li>Mentenață & securitate</li>
-      </ul>
-    </div>
-    <div class="art">
-      <img src="assets/hero.svg" alt="Abstract tech art" />
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <h2>Servicii</h2>
-    <div class="cards three">
-      <article class="card">
-        <h3>Dezvoltare website</h3>
-        <p>Site-uri corporate, landing pages, blog, portofoliu. Cod curat, structuri semantice.</p>
-      </article>
-      <article class="card">
-        <h3>Performanță & SEO</h3>
-        <p>Încărcare rapidă, meta corecte, schema markup. Lighthouse 90+ țintă.</p>
-      </article>
-      <article class="card">
-        <h3>Mentenață & securitate</h3>
-        <p>Update-uri, backup, hardening de bază. Monitorizare uptime.</p>
-      </article>
+      <div class="hero-media">
+        <!-- Slider populated by JS; shows fallback if no slides -->
+        <div id="hero-slider" class="hero-slider"></div>
+        <img id="home-hero-img" src="" alt="" class="hero-fallback">
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section alt">
-  <div class="container">
-    <h2>Proiecte</h2>
-    <div class="cards three">
-      <article class="card project">
-        <div class="thumb placeholder"></div>
-        <h3>Studiu de caz – SaaS</h3>
-        <p>Pagini optimizate pentru conversie. +35% lead-uri.</p>
-      </article>
-      <article class="card project">
-        <div class="thumb placeholder"></div>
-        <h3>Website corporate</h3>
-        <p>Arhitectură clară, navigație simplă, accesibilitate AA.</p>
-      </article>
-      <article class="card project">
-        <div class="thumb placeholder"></div>
-        <h3>Landing de campanie</h3>
-        <p>Implementare rapidă, A/B testing, KPI track.</p>
-      </article>
+  <!-- SERVICES PREVIEW -->
+  <section class="section">
+    <div class="container">
+      <h2>Services</h2>
+      <div id="home-services" class="grid-3"></div>
+      <div style="margin-top:12px">
+        <a class="btn" href="services.html">Browse all services</a>
+      </div>
     </div>
-    <div class="center">
-      <a class="btn" href="projects.html">Vezi toate proiectele</a>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="cta">
-  <div class="container stack center">
-    <h2>Pregătit să lansăm ceva grozav?</h2>
-    <p class="muted">Trimite-ne câteva detalii și revenim cu un plan.</p>
-    <a class="btn btn-gradient" href="contact.html">Contactează-ne</a>
-  </div>
-</section>
+  <!-- PROJECTS PREVIEW -->
+  <section class="section">
+    <div class="container">
+      <h2>Projects</h2>
+      <div id="home-projects" class="grid-3"></div>
+      <div style="margin-top:12px">
+        <a class="btn" href="projects.html">All projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP + CONTACT INFO -->
+  <section class="section alt" id="locatie">
+    <div class="container">
+      <h2>Find us here</h2>
+
+      <div class="map-grid">
+        <div class="map-card">
+          <div class="map-ratio">
+            <div id="mapWrap"></div>
+          </div>
+        </div>
+        <aside class="map-info">
+          <h4>Contact</h4>
+          <ul>
+            <li><strong>Email:</strong> <span id="mapEmail">—</span></li>
+            <li><strong>Phone:</strong> <span id="mapPhone">—</span></li>
+            <li><strong>Address:</strong> <span id="mapLocation">—</span></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container stack center">
+      <h2>Ready to launch something great?</h2>
+      <p class="muted">Send us a few details and we’ll come back with a tailored plan.</p>
+      <a class="btn btn-gradient" href="contact.html">Contact us</a>
+    </div>
+  </section>
 
 </main>
-<footer class="site-footer">
-  <div class="container footer-grid">
+
+<footer class="footer-b">
+  <div class="accent"></div>
+  <div class="wrap">
     <div>
-      <div class="brandline"><img src="assets/logo.svg" class="logo-sm" alt=""><strong>FussionComm ICT</strong></div>
-      <p class="muted">Soluții ITC agile pentru startup‑uri și IMM‑uri.</p>
+      <div class="brandline"><strong data-company="name"></strong></div>
+      <p class="muted" data-company="description">
+        Agile ICT solutions for startups and SMEs. Fast, scalable websites that are easy to manage.
+      </p>
     </div>
-    <div>
-      <h4>Linkuri</h4>
+    <nav>
+      <h4>Links</h4>
       <ul>
-        <li><a href="about.html">Despre</a></li>
-        <li><a href="services.html">Servicii</a></li>
-        <li><a href="projects.html">Proiecte</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
-    </div>
+    </nav>
     <div>
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:hello@fussioncomm.example">hello@fussioncomm.example</a></li>
-        <li>Pretoria, South Africa</li>
+        <li><a id="footer-email" href="#">hello@fussioncomm.example</a></li>
+        <li id="footer-location">Pretoria, South Africa</li>
       </ul>
     </div>
   </div>
-  <div class="container tiny">© 2025 FussionComm ICT. Toate drepturile rezervate.</div>
+  <div class="legal">© <span id="yearSpanB"></span> FussionComm ICT</div>
 </footer>
+
+<script>document.getElementById('yearSpanB').textContent = new Date().getFullYear();</script>
+
+<script>
+  (async function(){
+    try{
+      const r = await fetch('/api/me', { credentials:'include' });
+      const out = await r.json();
+      const logged = out.ok && out.user;
+      const L = document.getElementById('navLogin');
+      const O = document.getElementById('navLogout');
+      if (logged) { if (L) L.style.display='none'; if (O) O.style.display='inline-block'; }
+      if (O) O.onclick = async (e)=>{ e.preventDefault(); await fetch('/api/logout',{method:'POST',credentials:'include'}); location.reload(); };
+    }catch(e){}
+  })();
+</script>
+
+<script defer src="assets/cookie.js"></script>
 </body>
 </html>
