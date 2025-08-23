@@ -97,6 +97,9 @@ function hasRealAdmin() {
 // App
 // ───────────────────────────────────────────────────────────────────────────────
 const app = express();
+// Render/Heroku/NGINX etc. — aplicația e în spatele unui proxy
+app.set('trust proxy', 1);           // sau true
+
 
 // 1) Securitate de bază (CSP off pentru a permite watermark inline)
 app.use(helmet({ crossOriginEmbedderPolicy: false, contentSecurityPolicy: false }));
